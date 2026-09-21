@@ -31,6 +31,17 @@ _Last updated: 2026-09-22_
 
 ## Resume here — next steps
 
+> **Session paused 2026-09-22.** All dev/preview servers are stopped and the working tree is committed and pushed to `origin/main`. To pick up again:
+>
+> ```bash
+> cd C:\AWork\Auraspherev1claude
+> git pull
+> npm install               # only if package.json changed
+> npm run dev -- --host     # http://localhost:5173 (and LAN URL for phone testing)
+> ```
+>
+> Before any commit: `npm run build`, then `npx vite preview --port 4173 &`, `npm run qa` and `npm run qa:interactions`.
+
 1. Client review:
    - AI imagery acceptable? Real photos can be swapped in with `scripts/import-photo.py`.
    - Remaining contact details: WhatsApp, address, hours (`src/config/site.ts`).
