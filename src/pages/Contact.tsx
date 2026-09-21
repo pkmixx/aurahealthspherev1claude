@@ -313,13 +313,13 @@ export default function Contact() {
             </div>
             <ContactCard
               icon={<Phone aria-hidden className="size-5" />}
-              label="Phone"
+              label="Call us — contact & enquiries"
               value={CONTACT.phone}
               href={CONTACT.phone ? `tel:${CONTACT.phone.replace(/\s/g, '')}` : undefined}
             />
             <ContactCard
               icon={<Mail aria-hidden className="size-5" />}
-              label="Email"
+              label="Email us — support"
               value={CONTACT.email}
               href={CONTACT.email ? `mailto:${CONTACT.email}` : undefined}
             />

@@ -73,7 +73,10 @@ docs/            ARCHITECTURE.md, CONTENT.md, STAGE-2.md
 
 ## Editing content
 
-- **Contact details / social links** → `src/config/site.ts`. These are empty (`null`) until the client supplies them. The UI shows neutral placeholders, and social links render only when real URLs exist.
+- **Contact details / social links** → `src/config/site.ts`.
+  - Phone (contact & enquiries): **+91 73879 96455**
+  - Email (support): **aurasphere455@gmail.com**
+  - WhatsApp, address, hours and social URLs are still `null`. The UI hides or placeholders anything that's `null`.
 - **Services and activities** → `src/data/services.ts`
 - **Experts** → `src/data/experts.ts`
 - **Images** → `python scripts/import-photo.py <slot> <file-or-url> [focusX] [focusY]` crops to 3:2 and writes `src/assets/photos/<slot>-640.webp` + `-1200.webp`. Photos are picked up automatically (see `src/config/images.ts` for slot names), and a missing photo falls back to an abstract branded visual. The current photos are AI-generated via Canva; see `docs/CONTENT.md`.

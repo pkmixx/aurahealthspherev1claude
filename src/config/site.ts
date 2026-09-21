@@ -1,9 +1,9 @@
 /**
  * Central site configuration.
  *
- * Contact details and social links are intentionally left empty until the
- * client supplies them. Components render graceful placeholders for any
- * value that is `null`, and social links only appear when a URL exists.
+ * Contact details come from the client. Components render graceful
+ * placeholders for any value that is `null`, and social links only appear
+ * when a URL exists. Never invent values here.
  */
 
 export const SITE = {
@@ -27,11 +27,13 @@ export interface ContactDetails {
   hours: string | null
 }
 
-/** TODO(client): fill in real contact details. Do not invent these. */
+/** Supplied by the client (2026-09-21). Remaining nulls: still to be provided. */
 export const CONTACT: ContactDetails = {
-  phone: null,
+  /** Contact & enquiries */
+  phone: '+91 73879 96455',
   whatsapp: null,
-  email: null,
+  /** Support */
+  email: 'aurasphere455@gmail.com',
   address: null,
   hours: null,
 }

@@ -10,7 +10,7 @@ The site must look premium **without fabricating credibility**.
 - Certifications, awards or accreditations for AURASPHERE
 - Years of experience, procedure counts, success rates or medical outcomes
 - Company history
-- Contact details (phone, email, address) or social URLs
+- Contact details or social URLs beyond what the client supplied (phone +91 73879 96455 for contact & enquiries, email aurasphere455@gmail.com for support; both supplied 2026-09-21)
 - Prices, availability, inventory or "Book Now / Buy Now / Pay Now" CTAs
 
 If information is missing, **omit it**.

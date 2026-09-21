@@ -3,7 +3,7 @@
 > Living log so work can be resumed at any time. Update at every milestone.
 > Spec: `prompt.txt` · Docs: `README.md`, `docs/`
 
-_Last updated: 2026-09-21_
+_Last updated: 2026-09-22_
 
 ## Status at a glance
 
@@ -26,27 +26,14 @@ _Last updated: 2026-09-21_
 | Visual QA pass (390 / 1024 / 1440 reviewed) | ✅ Done |
 | Interaction QA (`scripts/qa-interactions.mjs`, 26 checks) | ✅ All pass |
 | Photography (13 slots, AI-generated via Canva) | ✅ Done. Client to confirm that AI imagery is acceptable |
-| Small images for subcategories (activities, corporate areas, category headers, menus) | 🔄 In progress. UI done, 25 of 40 activities have images |
-| Client contact details / social links  | ⏸ Waiting on client |
+| Small images for subcategories (activities, corporate areas, category headers, menus) | ✅ Done. All 40 activities, 10 corporate areas, 18 menu items and 6 category/subcategory headers |
+| Client contact details                 | ✅ Phone + support email added. WhatsApp, address, hours and socials still pending |
 
 ## Resume here — next steps
 
-0. **In progress: subcategory images.** Remaining activity ids without a thumb:
-   - health-talk, dental-camp, hair-skin-camp, one-on-one-diet-consultation, acupressure, ergonomics-session, ecg-camp, pft-camp, audiometry-camp, blood-donation-camp
-   - financial-wellness, tax-awareness, ai-workshop, parenting-session, posh-training
-
-   Also needed:
-   - `health-awareness` (reuse health-talk)
-   - `professional-awareness` (reuse ai-workshop)
-
-   Process:
-   1. Canva `generate-design` (desktop_wallpaper, "full-bleed photo, NO text")
-   2. Download the chosen candidate thumbnail with curl
-   3. `python scripts/make-thumb.py <id> <file>`
-
 1. Client review:
    - AI imagery acceptable? Real photos can be swapped in with `scripts/import-photo.py`.
-   - Contact details (`src/config/site.ts`).
+   - Remaining contact details: WhatsApp, address, hours (`src/config/site.ts`).
    - Social URLs.
    - Production domain (`VITE_SITE_URL`).
    - Legal review of `src/data/disclaimers.ts`.
@@ -58,7 +45,7 @@ _Last updated: 2026-09-21_
 - **Gemini image generation:** credits used up (402). No longer needed, since the images came from Canva. `scripts/generate-images.py` is kept as an alternative.
 - **Canva:** ✅ authenticated 2026-09-21 and used to generate all 13 site images.
 - **Nebius (`NEBIUS_API_KEY`):** checked 2026-09-21. The key only gives access to text models (Qwen, DeepSeek, GLM, Kimi…), and the image-generation endpoints return 404. Not usable for images.
-- **Client inputs needed:** phone, email, WhatsApp, address, hours (`src/config/site.ts`), social URLs, production domain (`VITE_SITE_URL`), and legal review of the disclaimer copy (`src/data/disclaimers.ts`).
+- **Client inputs needed:** WhatsApp, address, hours (`src/config/site.ts`), social URLs, production domain (`VITE_SITE_URL`), and legal review of the disclaimer copy (`src/data/disclaimers.ts`). Phone and support email were supplied 2026-09-21.
 
 ## Key decisions (and why)
 
@@ -112,3 +99,9 @@ SITE_URL=https://domain npm run sitemap               # sitemap after build
 
     Batch A (6 activities) generated; 7 more activity thumbs reuse existing photos.
   - Batches B and C generated: the Fitness & Lifestyle category is complete (Bollywood through team building). Garba is reused for Employee Engagement, and Fun Activities for the Lifestyle & Engagement subheading.
+- **2026-09-22**
+  - Subcategory images complete. Batches D–F added the Health & Prevention and Awareness activities, plus the Health Awareness and Professional Awareness areas.
+    - 56 card thumbs (~6–18 KB each) and 56 mini thumbs (~1–2 KB each), all lazy-loaded.
+    - Rejected candidates with embedded text (e.g. tax #2).
+  - Added the client's phone (+91 73879 96455, contact & enquiries) and support email (aurasphere455@gmail.com). This enables the Contact page cards, the footer links and the form's "Send via email" fallback.
+  - QA: 9 pages × 6 widths clean; 26/26 interaction checks pass.
