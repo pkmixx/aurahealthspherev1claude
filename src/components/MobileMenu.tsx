@@ -67,7 +67,7 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
           className="pointer-events-none absolute -top-24 -right-24 size-72 rounded-full bg-electric/25 blur-3xl"
         />
         <div className="relative flex h-[4.25rem] items-center justify-between px-4 xs:px-5">
-          <Logo className="w-[132px] xs:w-[148px]" sizes="148px" />
+          <Logo className="w-[150px] xs:w-[164px]" sizes="164px" />
           <button
             type="button"
             data-autofocus

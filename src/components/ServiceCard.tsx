@@ -18,12 +18,10 @@ export function ServiceCard({ service, className = '' }: ServiceCardProps) {
     <article className={`card card-hover group flex h-full flex-col overflow-hidden ${className}`}>
       <Visual image={IMAGES[service.image]} icon={service.icon} className="aspect-[16/10] w-full" sizes="(min-width: 1024px) 20vw, (min-width: 640px) 45vw, 80vw" />
       <div className="flex flex-1 flex-col p-5 sm:p-6">
-        <div className="flex items-center gap-3">
-          <span className="icon-badge size-10! rounded-xl!">
-            <Icon aria-hidden className="size-5" strokeWidth={1.7} />
-          </span>
-          <h3 className="text-[1.125rem] font-semibold">{service.name}</h3>
-        </div>
+        <span className="icon-badge size-10! rounded-xl!">
+          <Icon aria-hidden className="size-5" strokeWidth={1.7} />
+        </span>
+        <h3 className="mt-4 text-[1.125rem] font-semibold">{service.name}</h3>
         <p className="mt-3 flex-1 text-[0.9375rem] leading-relaxed text-muted">{service.summary}</p>
         <Link
           to={contactHref({ interest: service.interest, topic: service.name })}

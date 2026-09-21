@@ -39,7 +39,7 @@ export function Navbar() {
         </a>
         <nav aria-label="Primary" className="container-x flex h-[4.25rem] items-center justify-between gap-4 lg:h-20">
           <Link to="/" aria-label="AURASPHERE Wellness 360 — Home" className="-ml-1 shrink-0 rounded-lg p-1">
-            <Logo className="w-[132px] xs:w-[148px] lg:w-[150px] xl:w-[172px]" sizes="172px" priority />
+            <Logo className="w-[150px] xs:w-[164px] lg:w-[168px] xl:w-[200px]" sizes="200px" priority />
           </Link>
 
           <ul className="hidden items-center gap-0.5 lg:flex xl:gap-1">
@@ -49,9 +49,11 @@ export function Navbar() {
           </ul>
 
           <div className="flex items-center gap-2">
-            <ButtonLink to={contactHref()} size="md" className="hidden lg:inline-flex">
-              Contact Us
-            </ButtonLink>
+            <div className="hidden lg:block">
+              <ButtonLink to={contactHref()} size="md">
+                Contact Us
+              </ButtonLink>
+            </div>
             <button
               ref={menuButtonRef}
               type="button"

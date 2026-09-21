@@ -31,6 +31,14 @@ SITE_URL=https://your-domain.com npm run sitemap   # writes dist/sitemap.xml aft
 python scripts/generate-images.py                  # generate site photography via Gemini (needs GEMINI_API_KEY)
 ```
 
+### Quality checks
+
+```bash
+npm run build && npx vite preview --port 4173 &
+npm run qa                 # 9 pages × 6 breakpoints: console errors, overflow, broken images/links, h1, screenshots → screenshots/
+npm run qa:interactions    # mobile menu, dropdowns, tabs, deep links, expert modal, contact form validation/success
+```
+
 ## Pages
 
 | Route                 | Page                |
@@ -42,6 +50,7 @@ python scripts/generate-images.py                  # generate site photography v
 | `/experts`            | Our Experts         |
 | `/about`              | About               |
 | `/contact`            | Contact             |
+| `/disclaimer`         | Health Disclaimer   |
 
 Expert profiles are deep-linkable: `/experts?expert=kunjan-paul`.
 
@@ -58,7 +67,7 @@ src/
                  Accordion, ScrollToTop, Visual, Logo, Button, Reveal, OrbitRings, WellnessTabs
   pages/         Home, Healthcare, Wellness, CorporateWellness, Experts, About, Contact, NotFound
 public/          brand/ (logo variants), images/experts/, og-image.jpg, favicon, robots.txt
-scripts/         generate-sitemap.mjs, generate-images.py
+scripts/         generate-sitemap.mjs, generate-images.py, qa.mjs, qa-interactions.mjs
 docs/            ARCHITECTURE.md, CONTENT.md, STAGE-2.md
 ```
 
