@@ -26,6 +26,18 @@ Tokens live in `src/index.css` (`@theme`):
 - `.surface-light` flips a section to light paper (`#F5F8FC`) with ink text, so dark and light sections alternate.
 - Utility classes: `.card`, `.card-light`, `.card-hover`, `.icon-badge`, `.chip`, `.eyebrow`, `.field`, `.rule`, `.reveal`.
 
+## Images
+
+| Kind | Location | Size | Used by | Lookup |
+| --- | --- | --- | --- | --- |
+| Section photos | `src/assets/photos/<slot>-{640,1200}.webp` | 20–90 KB | Heroes, service cards, feature sections | `IMAGES` registry (`src/config/images.ts`) |
+| Card thumbnails | `src/assets/thumbs/<id>.webp` | 480×320, ~6–18 KB | Wellness activity cards, corporate area cards | `thumbFor(id)` |
+| Mini thumbnails | `src/assets/mini/<id>.webp` | 96×96, ~1–2 KB | Dropdown/mobile menu items, category & subcategory headers | `miniFor(id)` / `<MenuThumb>` |
+
+- All three are discovered with `import.meta.glob`. Adding a file is enough; a missing file falls back to an icon or abstract visual.
+- Everything below the fold uses `loading="lazy"`. Menu thumbnails sit inside hidden dropdowns, so they only download when a menu opens.
+- Activity cards use a compact side thumbnail on phones and an image-on-top layout from `sm` up, which keeps the mobile page short.
+
 ## Motion
 
 - `Reveal` + `useReveal()` use IntersectionObserver to add `.is-visible`, and CSS handles the fade/slide.

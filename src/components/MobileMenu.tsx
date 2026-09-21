@@ -6,6 +6,7 @@ import { contactHref } from '@/lib/contact'
 import { useScrollLock } from '@/lib/hooks'
 import { ButtonLink } from './Button'
 import { Logo } from './Logo'
+import { MenuThumb } from './MenuThumb'
 
 interface MobileMenuProps {
   open: boolean
@@ -115,14 +116,15 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
                     <ul
                       id={`m-${item.to.replace(/\W/g, '')}`}
                       hidden={!isOpen}
-                      className="mt-1 mb-2 ml-3 grid grid-cols-1 gap-0.5 border-l border-line-soft pl-3 xs:grid-cols-2"
+                      className="mt-1 mb-2 ml-3 grid grid-cols-1 gap-0.5 border-l border-line-soft pl-2"
                     >
                       {item.children.map((child) => (
                         <li key={child.to}>
                           <Link
                             to={child.to}
-                            className="flex min-h-11 items-center rounded-xl px-3 text-[0.9375rem] text-silver/90 hover:bg-white/5 hover:text-white"
+                            className="flex min-h-12 items-center gap-3 rounded-xl px-2 text-[0.9375rem] text-silver/90 hover:bg-white/5 hover:text-white"
                           >
+                            <MenuThumb id={child.image} />
                             {child.label}
                           </Link>
                         </li>

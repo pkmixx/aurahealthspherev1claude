@@ -50,4 +50,5 @@ Short, neutral one-liners only. No health claims. Each activity has a `format` (
   - The brief was candid documentary style, Indian workplace and healthcare context, cool-blue grade, and no text or logos.
   - Every image was reviewed; candidates with embedded text were rejected.
   - Source designs live in the connected Canva account (titles such as "Candid Moment of Empathy in Healthcare").
+- **Small images** for wellness activities, corporate areas, category headers and menus: some reuse the photos above, and the rest are additional Canva-generated images (same brief), stored as small WebP thumbnails.
 - **Before launch:** confirm with the client that AI imagery is acceptable. Swap in real event photos as they become available with `python scripts/import-photo.py <slot-name> <file-or-url>`. Use of Canva-generated content is subject to Canva's content licence.

@@ -6,6 +6,7 @@ import { contactHref } from '@/lib/contact'
 import { Logo } from './Logo'
 import { ButtonLink } from './Button'
 import { MobileMenu } from './MobileMenu'
+import { MenuThumb } from './MenuThumb'
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -156,15 +157,16 @@ function DesktopItem({ item }: { item: NavItem }) {
       <div
         id={menuId}
         hidden={!open}
-        className="absolute top-full left-1/2 z-50 w-64 -translate-x-1/2 pt-3"
+        className="absolute top-full left-1/2 z-50 w-72 -translate-x-1/2 pt-3"
       >
         <ul className="card overflow-hidden rounded-2xl border-line bg-navy-900/95 p-2 backdrop-blur-xl">
           {item.children.map((child) => (
             <li key={child.to}>
               <Link
                 to={child.to}
-                className="flex min-h-11 items-center rounded-xl px-3.5 text-[0.9375rem] text-silver transition-colors hover:bg-white/5 hover:text-white"
+                className="flex min-h-12 items-center gap-3 rounded-xl px-2.5 text-[0.9375rem] text-silver transition-colors hover:bg-white/5 hover:text-white"
               >
+                <MenuThumb id={child.image} />
                 {child.label}
               </Link>
             </li>

@@ -26,9 +26,27 @@ _Last updated: 2026-09-21_
 | Visual QA pass (390 / 1024 / 1440 reviewed) | ✅ Done |
 | Interaction QA (`scripts/qa-interactions.mjs`, 26 checks) | ✅ All pass |
 | Photography (13 slots, AI-generated via Canva) | ✅ Done. Client to confirm that AI imagery is acceptable |
+| Small images for subcategories (activities, corporate areas, category headers, menus) | 🔄 In progress. UI done, 13 of 40 activities have images |
 | Client contact details / social links  | ⏸ Waiting on client |
 
 ## Resume here — next steps
+
+0. **In progress: subcategory images.** Remaining activity ids without a thumb:
+   - bollywood-dance, self-defence
+   - grooming, nail-art, gardening, garba, guitarist-session, coffee-painting, mandala-art, comedy-show, fun-activities, team-building
+   - health-talk, dental-camp, hair-skin-camp, one-on-one-diet-consultation, acupressure, ergonomics-session, ecg-camp, pft-camp, audiometry-camp, blood-donation-camp
+   - financial-wellness, tax-awareness, ai-workshop, parenting-session, posh-training
+
+   Also needed:
+   - `lifestyle-engagement` (reuse fun-activities)
+   - `health-awareness` (reuse health-talk)
+   - `professional-awareness` (reuse ai-workshop)
+   - `employee-engagement` (reuse garba)
+
+   Process:
+   1. Canva `generate-design` (desktop_wallpaper, "full-bleed photo, NO text")
+   2. Download the chosen candidate thumbnail with curl
+   3. `python scripts/make-thumb.py <id> <file>`
 
 1. Client review:
    - AI imagery acceptable? Real photos can be swapped in with `scripts/import-photo.py`.
@@ -89,3 +107,11 @@ SITE_URL=https://domain npm run sitemap               # sitemap after build
   - Canva authenticated. Generated 4 candidates per slot × 13 slots and picked the best for each; rejected candidates with embedded text.
   - Exported at 1920px. Imported via the new `scripts/import-photo.py` (3:2 crop, 640/1200 WebP, 1.1 MB total).
   - QA re-run: clean. 26/26 interaction checks pass.
+  - Started subcategory images:
+    - `scripts/make-thumb.py`
+    - `thumbFor` / `miniFor` lookups
+    - image cards for activities and corporate areas
+    - image headers for categories and subcategories
+    - thumbnails in the dropdown and mobile menus
+
+    Batch A (6 activities) generated; 7 more activity thumbs reuse existing photos.

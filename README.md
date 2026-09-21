@@ -67,7 +67,7 @@ src/
                  Accordion, ScrollToTop, Visual, Logo, Button, Reveal, OrbitRings, WellnessTabs
   pages/         Home, Healthcare, Wellness, CorporateWellness, Experts, About, Contact, NotFound
 public/          brand/ (logo variants), images/experts/, og-image.jpg, favicon, robots.txt
-scripts/         generate-sitemap.mjs, generate-images.py, qa.mjs, qa-interactions.mjs
+scripts/         generate-sitemap.mjs, generate-images.py, import-photo.py, make-thumb.py, qa.mjs, qa-interactions.mjs
 docs/            ARCHITECTURE.md, CONTENT.md, STAGE-2.md
 ```
 
@@ -77,6 +77,7 @@ docs/            ARCHITECTURE.md, CONTENT.md, STAGE-2.md
 - **Services and activities** → `src/data/services.ts`
 - **Experts** → `src/data/experts.ts`
 - **Images** → `python scripts/import-photo.py <slot> <file-or-url> [focusX] [focusY]` crops to 3:2 and writes `src/assets/photos/<slot>-640.webp` + `-1200.webp`. Photos are picked up automatically (see `src/config/images.ts` for slot names), and a missing photo falls back to an abstract branded visual. The current photos are AI-generated via Canva; see `docs/CONTENT.md`.
+- **Small images** (wellness activities, corporate areas, category headers, menu items) → `python scripts/make-thumb.py <content-id> <file-or-url>` writes `src/assets/thumbs/<id>.webp` (480×320, ~6–18 KB) and `src/assets/mini/<id>.webp` (96×96, ~1–2 KB). The id is the activity / area / service / category id from `src/data`. Images are matched by id automatically; items without one keep their icon.
 
 The content rules (no invented credentials, stats, testimonials and so on) are in [`docs/CONTENT.md`](docs/CONTENT.md).
 

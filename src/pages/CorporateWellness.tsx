@@ -1,6 +1,6 @@
 import { Check } from 'lucide-react'
 import { ROUTES } from '@/config/routes'
-import { IMAGES } from '@/config/images'
+import { IMAGES, thumbFor } from '@/config/images'
 import { CORPORATE_AREAS, PROGRAM_FORMATS } from '@/data/services'
 import { useDocumentMeta } from '@/lib/hooks'
 import { contactHref } from '@/lib/contact'
@@ -91,9 +91,30 @@ export default function CorporateWellness() {
           <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:mt-14 lg:grid-cols-3 lg:gap-5 xl:grid-cols-5">
             {CORPORATE_AREAS.map((area, i) => {
               const Icon = getIcon(area.icon)
+              const thumb = thumbFor(area.id)
               return (
-                <Reveal as="article" key={area.id} id={area.id} delay={(i % 5) * 60} className="card-light card-hover flex scroll-mt-28 flex-col p-6">
-                  <span className="icon-badge">
+                <Reveal
+                  as="article"
+                  key={area.id}
+                  id={area.id}
+                  delay={(i % 5) * 60}
+                  className="card-light card-hover group flex scroll-mt-28 flex-col overflow-hidden"
+                >
+                  {thumb && (
+                    <div className="relative aspect-[3/2] overflow-hidden bg-paper-2">
+                      <img
+                        src={thumb}
+                        alt=""
+                        width={480}
+                        height={320}
+                        loading="lazy"
+                        decoding="async"
+                        className="size-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                      />
+                    </div>
+                  )}
+                  <div className={`flex flex-1 flex-col p-6 ${thumb ? 'pt-0' : ''}`}>
+                  <span className={`icon-badge ${thumb ? 'relative -mt-6 border-white shadow-md' : ''}`}>
                     <Icon aria-hidden className="size-6" strokeWidth={1.6} />
                   </span>
                   <h3 className="mt-5 text-lg font-semibold">{area.name}</h3>
@@ -105,6 +126,7 @@ export default function CorporateWellness() {
                       </li>
                     ))}
                   </ul>
+                  </div>
                 </Reveal>
               )
             })}
