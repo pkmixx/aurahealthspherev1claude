@@ -45,4 +45,9 @@ Short, neutral one-liners only. No health claims. Each activity has a `format` (
 ## Imagery
 
 - Expert portraits are cropped from the supplied profiles.
-- Other visuals use `src/config/images.ts`. Until real or generated photos are added, slots render an abstract branded composition. Generated photography should stay candid and realistic, with no obviously AI-looking faces, no text and no logos.
+- Other visuals are registered in `src/config/images.ts`. A slot without a photo shows an abstract branded composition.
+- **Current photos (13) are AI-generated with Canva's design generator** (2026-09-21), not photographs of real AURASPHERE people or events.
+  - The brief was candid documentary style, Indian workplace and healthcare context, cool-blue grade, and no text or logos.
+  - Every image was reviewed; candidates with embedded text were rejected.
+  - Source designs live in the connected Canva account (titles such as "Candid Moment of Empathy in Healthcare").
+- **Before launch:** confirm with the client that AI imagery is acceptable. Swap in real event photos as they become available with `python scripts/import-photo.py <slot-name> <file-or-url>`. Use of Canva-generated content is subject to Canva's content licence.

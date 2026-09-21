@@ -25,24 +25,24 @@ _Last updated: 2026-09-21_
 | Automated QA script (`scripts/qa.mjs`) | ✅ Done — last run: no problems |
 | Visual QA pass (390 / 1024 / 1440 reviewed) | ✅ Done |
 | Interaction QA (`scripts/qa-interactions.mjs`, 26 checks) | ✅ All pass |
-| Realistic photography                  | ⏸ Blocked (see below) |
+| Photography (13 slots, AI-generated via Canva) | ✅ Done. Client to confirm that AI imagery is acceptable |
 | Client contact details / social links  | ⏸ Waiting on client |
 
 ## Resume here — next steps
 
-1. Get photography. Options, in order:
-   - (a) top up the Gemini credits, then run `python scripts/generate-images.py`
-   - (b) authenticate Canva (`/mcp` → claude.ai Canva) and create the images there
-   - (c) the client supplies photos
-
-   Save the files as `src/assets/photos/<name>-640.webp` and `<name>-1200.webp`. Then review every image for realism (no obviously AI-looking faces, no text or logos).
-3. Re-run QA: `npm run build && npx vite preview --port 4173` then `node scripts/qa.mjs`.
-4. Commit + push with updated docs.
+1. Client review:
+   - AI imagery acceptable? Real photos can be swapped in with `scripts/import-photo.py`.
+   - Contact details (`src/config/site.ts`).
+   - Social URLs.
+   - Production domain (`VITE_SITE_URL`).
+   - Legal review of `src/data/disclaimers.ts`.
+2. Deploy: static host with SPA fallback (Netlify `_redirects` / `vercel.json` included). Then run `SITE_URL=… npm run sitemap` and add the sitemap line to `robots.txt`.
+3. Stage 2 planning: see `docs/STAGE-2.md`.
 
 ## Blockers / open items
 
-- **Gemini image generation:** `GEMINI_API_KEY` is present, but the project's prepaid credits are used up (HTTP 402 on every image model). Script is ready at `scripts/generate-images.py`. Until then, image slots show branded abstract visuals (by design, with no broken images).
-- **Canva:** connected on claude.ai but still needs authentication in Claude Code (`/mcp` → claude.ai Canva). Re-checked 2026-09-21: still unauthenticated.
+- **Gemini image generation:** credits used up (402). No longer needed, since the images came from Canva. `scripts/generate-images.py` is kept as an alternative.
+- **Canva:** ✅ authenticated 2026-09-21 and used to generate all 13 site images.
 - **Nebius (`NEBIUS_API_KEY`):** checked 2026-09-21. The key only gives access to text models (Qwen, DeepSeek, GLM, Kimi…), and the image-generation endpoints return 404. Not usable for images.
 - **Client inputs needed:** phone, email, WhatsApp, address, hours (`src/config/site.ts`), social URLs, production domain (`VITE_SITE_URL`), and legal review of the disclaimer copy (`src/data/disclaimers.ts`).
 
@@ -86,3 +86,6 @@ SITE_URL=https://domain npm run sitemap               # sitemap after build
   - Hardened the flaky interaction checks: 3 consecutive runs, all 26 pass.
   - Full QA suite: 9 pages × 6 widths, 89 links, no problems.
   - Re-checked image sources: Gemini still returns 402, Nebius has no image models, Canva is not authenticated.
+  - Canva authenticated. Generated 4 candidates per slot × 13 slots and picked the best for each; rejected candidates with embedded text.
+  - Exported at 1920px. Imported via the new `scripts/import-photo.py` (3:2 crop, 640/1200 WebP, 1.1 MB total).
+  - QA re-run: clean. 26/26 interaction checks pass.

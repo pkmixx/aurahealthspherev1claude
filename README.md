@@ -76,7 +76,7 @@ docs/            ARCHITECTURE.md, CONTENT.md, STAGE-2.md
 - **Contact details / social links** → `src/config/site.ts`. These are empty (`null`) until the client supplies them. The UI shows neutral placeholders, and social links render only when real URLs exist.
 - **Services and activities** → `src/data/services.ts`
 - **Experts** → `src/data/experts.ts`
-- **Images** → put `<name>-640.webp` + `<name>-1200.webp` into `src/assets/photos/`. They're picked up automatically (see `src/config/images.ts`). A missing photo falls back to an abstract branded visual, so there are never broken images.
+- **Images** → `python scripts/import-photo.py <slot> <file-or-url> [focusX] [focusY]` crops to 3:2 and writes `src/assets/photos/<slot>-640.webp` + `-1200.webp`. Photos are picked up automatically (see `src/config/images.ts` for slot names), and a missing photo falls back to an abstract branded visual. The current photos are AI-generated via Canva; see `docs/CONTENT.md`.
 
 The content rules (no invented credentials, stats, testimonials and so on) are in [`docs/CONTENT.md`](docs/CONTENT.md).
 
