@@ -1,0 +1,1195 @@
+You are a senior product designer + senior frontend engineer.
+
+Build a premium, modern, mobile-first static website for:
+
+AURASPHERE WELLNESS 360
+
+The website is for an integrated healthcare, wellness and corporate wellness company.
+
+IMPORTANT:
+This is STAGE 1 of the project.
+
+STAGE 1 REQUIREMENTS:
+- Static frontend only
+- No backend
+- No database
+- No authentication
+- No payment gateway
+- No appointment booking engine
+- No pharmacy ordering system
+- No lab booking system
+- No real API integrations
+- No unnecessary complexity
+- Every service CTA should ultimately lead to "Contact Us"
+- Structure the code so backend/booking functionality can be added later without rebuilding the frontend.
+
+==================================================
+1. CORE DESIGN DIRECTION
+==================================================
+
+The website should feel:
+
+- Premium
+- Modern
+- Trustworthy
+- Healthcare-focused
+- Wellness-focused
+- Futuristic
+- Clean
+- Human
+- Professional
+- Slightly Gen-Z / contemporary
+- Corporate-ready
+
+DO NOT make it look:
+- Like a generic hospital website
+- Like a medical SaaS dashboard
+- Like a gaming website
+- Overly neon
+- Overly futuristic
+- Cheap
+- Template-like
+- Cluttered
+
+Think:
+
+"Premium healthcare + corporate wellness + modern technology"
+
+The website should communicate that AURASPHERE is not only about illness treatment, but about complete 360-degree health, wellness, prevention and workplace well-being.
+
+==================================================
+2. BRAND COLORS
+==================================================
+
+Use this exact visual system:
+
+PRIMARY:
+Deep Navy:
+#070B14
+
+Midnight Blue:
+#0D1424
+
+ACCENTS:
+Electric Blue:
+#155CFF
+
+Cyan:
+#00D9FF
+
+TEXT:
+White:
+#FFFFFF
+
+Metallic Silver:
+#DCE3EA
+
+Muted Silver:
+#8D98A8
+
+BORDER:
+#1D3F82
+
+SUBTLE BLUE GLOW:
+rgba(0,217,255,0.25)
+
+PRIMARY GRADIENT:
+linear-gradient(135deg, #155CFF 0%, #00D9FF 100%)
+
+Approximate visual balance:
+- 70% Deep Navy / Midnight / White surfaces
+- 20% White / Silver
+- 10% Electric Blue / Cyan accents
+
+Do not overuse gradients.
+
+Blue/cyan should feel like a premium accent, NOT a neon gaming color.
+
+==================================================
+3. LOGO
+==================================================
+
+Use the AURASPHERE WELLNESS 360 logo provided by the client as the primary brand mark.
+
+The logo concept includes:
+- AURASPHERE wordmark
+- ₹ symbol integrated into the wordmark replacing the R
+- Orbital/sphere visual language
+- Silver/white typography
+- Blue/cyan accents
+- WELLNESS 360 subtitle
+
+The logo must remain visually prominent but not oversized.
+
+Create appropriate logo variants if necessary through CSS treatment:
+- Dark background version
+- Light background version
+
+Do NOT redesign the logo.
+
+Maintain correct proportions and spacing.
+
+==================================================
+4. MOBILE-FIRST IS THE PRIORITY
+==================================================
+
+Design mobile FIRST.
+
+Do not design desktop first and simply shrink it.
+
+Primary target:
+Mobile phones.
+
+Then progressively enhance for:
+- Tablet
+- Laptop
+- Desktop
+- Large desktop
+
+The mobile experience must feel intentionally designed.
+
+Use:
+- Large readable typography
+- Comfortable spacing
+- Thumb-friendly buttons
+- Sticky/mobile navigation where appropriate
+- Horizontally scrollable service cards where useful
+- Accordion sections for long content
+- Clean section hierarchy
+- No tiny text
+- No overcrowded grids
+
+Buttons should be easy to tap.
+
+Minimum comfortable touch target:
+approximately 44px.
+
+==================================================
+5. TECH STACK
+==================================================
+
+Use a modern production-quality frontend stack.
+
+Preferred:
+- React
+- TypeScript
+- Tailwind CSS
+
+If the existing project already has a framework, preserve the existing framework unless there is a strong technical reason not to.
+
+Use reusable components.
+
+Suggested structure:
+
+components/
+  Navbar
+  MobileMenu
+  Hero
+  SectionHeading
+  ServiceCard
+  ServiceCategory
+  ExpertCard
+  CTASection
+  Footer
+  ContactCard
+  TestimonialCard
+  IconCard
+  Accordion
+  ScrollToTop
+
+pages/
+  Home
+  Healthcare
+  Wellness
+  CorporateWellness
+  Experts
+  About
+  Contact
+
+data/
+  services
+  experts
+
+Keep content/data separate from UI wherever practical.
+
+==================================================
+6. NAVIGATION
+==================================================
+
+Desktop navigation:
+
+AURASPHERE logo
+
+Home
+Healthcare
+Wellness
+Corporate Wellness
+Our Experts
+About
+Contact
+
+Primary CTA:
+CONTACT US
+
+Healthcare dropdown can contain:
+- Doctor Consultation
+- Pharmacy
+- Lab Tests
+- Health Camps
+- Diet & Nutrition
+
+Wellness dropdown:
+- Yoga
+- Meditation
+- Sound Therapy
+- Fitness
+- Mental Well-being
+- Nutrition
+- Lifestyle & Engagement
+
+Corporate Wellness:
+- Wellness Activities
+- Health Awareness
+- Employee Wellness
+- Training & Workshops
+- Preventive Health Camps
+- Team Building
+
+On mobile:
+Use a clean hamburger menu.
+
+Mobile menu should feel premium.
+
+Do not make the mobile menu enormous or cluttered.
+
+==================================================
+7. HOMEPAGE
+==================================================
+
+Create a high-impact hero.
+
+Hero headline:
+
+"Your Health.
+Your Wellness.
+Your Complete 360° Care."
+
+Alternative supporting line:
+
+"Integrated healthcare, wellness and corporate well-being solutions designed around people."
+
+Primary CTA:
+"Explore Services"
+
+Secondary CTA:
+"Contact Us"
+
+Hero visual direction:
+- Dark premium background
+- Subtle orbital/sphere elements
+- Soft cyan/blue glow
+- Wellness/health imagery
+- Avoid stock-photo-heavy appearance
+- Use subtle abstract healthcare + wellness visuals
+- Logo should integrate naturally
+
+Do NOT use excessive animation.
+
+Use subtle:
+- fade
+- slide
+- glow
+- orbital motion
+
+Animations should respect prefers-reduced-motion.
+
+==================================================
+8. HOMEPAGE SECTIONS
+==================================================
+
+After hero:
+
+SECTION 1:
+"Complete Wellness. One Sphere."
+
+Explain AURASPHERE in a short premium paragraph.
+
+Example concept:
+
+"From preventive healthcare to workplace wellness, AURASPHERE brings healthcare, wellness, awareness and lifestyle experiences together under one integrated ecosystem."
+
+Then show four pillars:
+
+1. Healthcare
+2. Wellness
+3. Corporate Wellness
+4. Preventive Care
+
+Use beautiful icon cards.
+
+--------------------------------------------------
+
+SECTION 2:
+"Healthcare When You Need It"
+
+Services:
+
+Doctor Consultation
+Pharmacy
+Lab Tests
+Health Camps
+Diet & Nutrition
+
+Each card should contain:
+- Icon/image
+- Service name
+- 1-line description
+- Contact Us CTA
+
+Important:
+All buttons should go to Contact.
+
+--------------------------------------------------
+
+SECTION 3:
+"Wellness That Fits Your Life"
+
+Display wellness activities in a visually attractive grid/card system.
+
+Categories:
+
+MIND & WELL-BEING
+- Meditation
+- Stress Management
+- Mental Well-being
+- Sound Therapy
+- Yoga
+- Personality Development
+
+FITNESS & LIFESTYLE
+- Zumba
+- Tabata
+- Bollywood Dance
+- Dance Fitness
+- Self Defence
+- Grooming
+- Nail Art
+- Gardening
+- Garba
+- Guitarist Session
+- Coffee Painting
+- Mandala Art
+- Comedy Show
+- Fun Activities
+- Team Building
+
+HEALTH & PREVENTION
+- Health Talk
+- Eye Check-up Camp
+- Dental Camp
+- Basic Health Camp
+- Hair & Skin Camp
+- Diet & Nutrition
+- 1:1 Diet Consultation
+- Acupressure
+- Ergonomics Session
+- ECG Camp
+- PFT Camp
+- Audiometry Camp
+- Blood Donation Camp
+
+AWARENESS & PROFESSIONAL
+- Financial Wellness
+- Tax Awareness
+- AI Workshop
+- CPR Session
+- Parenting Session
+- POSH Training
+
+Do NOT duplicate Garba Session.
+
+For mobile:
+Use category tabs or accordions rather than showing an enormous wall of cards.
+
+--------------------------------------------------
+
+SECTION 4:
+"Wellness For Modern Workplaces"
+
+Explain corporate wellness.
+
+Include:
+
+- Desk Yoga
+- Chair Yoga
+- Meditation
+- Sound Therapy
+- Stress Management
+- Health Talks
+- Financial Wellness
+- Tax Awareness
+- AI Workshops
+- CPR & First Aid
+- Nutrition Sessions
+- Ergonomics
+- POSH Training
+- Parenting Sessions
+- Team Building
+- Fun Activities
+- Fitness Sessions
+- Health Camps
+
+CTA:
+"Plan a Corporate Wellness Program"
+
+Button:
+"Contact Us"
+
+--------------------------------------------------
+
+SECTION 5:
+"Meet Our Experts"
+
+Create premium expert cards.
+
+Include the supplied expert information.
+
+Experts:
+
+DR. DEEPAK GAUTAM
+MBBS, MS Orthopaedics (AIIMS New Delhi), FACS
+
+Focus:
+Orthopaedics, robotic joint replacement, knee and hip replacement, complex joint reconstruction and trauma.
+
+DR. NITISH ARORA
+MBBS, MS Orthopaedics, DNB
+Fellowship in Limb Reconstruction & Deformity Correction
+
+Focus:
+Paediatric orthopaedics, complex trauma, limb reconstruction, deformity correction and joint preservation.
+
+DR. RAJESH S. SHINDE
+MBBS, MS, MCh, FACS
+
+Focus:
+Surgical Oncology, gastrointestinal / hepatopancreatobiliary / colorectal / thoracic oncology.
+
+DR. SANJEEV KUMAR KALKEKAR
+MD (Gen. Med), DNB (Cardiology)
+
+Focus:
+Interventional cardiology, structural heart disease and rhythm disorders.
+
+DR. ROHINI KHERA BHATT
+MBBS, MS (Gold Medalist), DNB (Obstetrics & Gynecology), MRCOG (UK)
+
+Focus:
+Obstetrics, gynaecology, minimally invasive and robotic gynaecological surgery.
+
+KUNJAN PAUL
+
+Areas:
+- CPR & First Aid Training
+- Mental Well-being
+- Stress Management
+- Nutrition
+- Corporate Wellness
+- Sound Healing
+- Breathwork
+- Guided Relaxation
+
+IMPORTANT:
+Do not invent additional qualifications, awards, statistics, hospitals, experience or claims.
+
+Use only the supplied profile information.
+
+Each expert card:
+- Photo
+- Name
+- Credentials / role
+- Areas of expertise
+- View Profile
+- Contact Us
+
+"View Profile" can open a static profile modal/page in Stage 1.
+
+No booking functionality.
+
+--------------------------------------------------
+
+SECTION 6:
+"Why AURASPHERE?"
+
+Use 5–6 premium feature cards:
+
+360° Approach
+"Healthcare, wellness and preventive solutions in one ecosystem."
+
+Expert-Led
+"Programs supported by qualified healthcare and wellness professionals."
+
+Corporate Ready
+"Wellness experiences designed for modern workplaces and teams."
+
+Preventive Focus
+"Encouraging healthier habits, awareness and early action."
+
+Flexible Programs
+"From individual sessions to group and workplace programs."
+
+Human-Centred
+"Designed around real people, real workplaces and real wellness needs."
+
+Do not make unsupported medical claims.
+
+--------------------------------------------------
+
+SECTION 7:
+"Built For People. Designed For Organisations."
+
+Split section:
+
+FOR INDIVIDUALS
+- Healthcare access
+- Wellness sessions
+- Nutrition
+- Preventive health
+
+FOR ORGANISATIONS
+- Corporate wellness
+- Employee engagement
+- Health camps
+- Training
+- Team activities
+
+CTA:
+"Talk to AURASPHERE"
+
+--------------------------------------------------
+
+SECTION 8:
+FINAL CTA
+
+Large premium dark section.
+
+Headline:
+
+"Let's Build a Healthier 360°"
+
+Subheading:
+
+"Tell us what you need. We'll help you find the right healthcare or wellness solution."
+
+Button:
+"Contact Us"
+
+==================================================
+9. HEALTHCARE PAGE
+==================================================
+
+Create dedicated static page.
+
+Hero:
+"Healthcare, Connected Around You."
+
+Services:
+- Doctor Consultation
+- Pharmacy
+- Lab Tests
+- Health Camps
+- Diet & Nutrition
+
+Each service has:
+- Image/icon
+- Description
+- Benefits/features
+- Contact Us
+
+IMPORTANT:
+No fake booking forms.
+
+Contact Us can lead to:
+#contact
+
+or Contact page.
+
+==================================================
+10. WELLNESS PAGE
+==================================================
+
+Create a dedicated Wellness page.
+
+Hero:
+"Wellness Beyond the Workplace."
+
+Show all wellness activities grouped logically.
+
+Use:
+- Category navigation
+- Search/filter UI if useful
+- Responsive cards
+- Accordion on mobile
+
+Each activity should have:
+Name
+Short description
+Format
+Contact Us
+
+Do not invent detailed claims for services where no description was provided.
+
+==================================================
+11. CORPORATE WELLNESS PAGE
+==================================================
+
+Hero:
+
+"Healthier Teams.
+Stronger Workplaces."
+
+Explain AURASPHERE corporate wellness.
+
+Sections:
+
+Wellness Sessions
+Health Awareness
+Fitness
+Mental Well-being
+Nutrition
+Preventive Camps
+Financial Wellness
+Professional Awareness
+Team Building
+Employee Engagement
+
+Show sample program formats:
+
+- One-time session
+- Workshop
+- Health camp
+- Employee engagement activity
+- Custom corporate program
+
+Do NOT claim specific number of clients, employees impacted, sessions delivered, etc., unless explicitly provided by the client.
+
+CTA:
+"Build Your Corporate Wellness Program"
+
+→ Contact Us
+
+==================================================
+12. EXPERTS PAGE
+==================================================
+
+Create a dedicated experts directory.
+
+Filters can visually exist but do not need backend functionality.
+
+Categories:
+- Doctors
+- Wellness Experts
+- Trainers
+- Nutrition
+- Mental Well-being
+- Sound Healing
+
+Cards should be reusable.
+
+==================================================
+13. ABOUT PAGE
+==================================================
+
+Create a premium About page.
+
+Do not invent company history.
+
+Use positioning:
+
+"AURASPHERE Wellness 360 is envisioned as an integrated platform bringing healthcare, wellness, preventive care and workplace well-being together."
+
+Include:
+
+Our Vision
+Our Approach
+Healthcare
+Wellness
+Corporate Wellness
+
+Keep language aspirational but factual.
+
+==================================================
+14. CONTACT PAGE
+==================================================
+
+Create a premium contact page.
+
+Fields:
+
+Name
+Company / Organisation
+Phone
+Email
+Interested In
+Message
+
+Interested In options:
+
+Doctor Consultation
+Pharmacy
+Lab Tests
+Health Camp
+Wellness Activity
+Corporate Wellness
+Nutrition
+Mental Well-being
+CPR / First Aid
+Other
+
+Since Stage 1 is static:
+The form does NOT need a backend.
+
+Create a frontend-only interaction:
+- validation
+- success state
+- no actual submission required
+
+Also include:
+
+"Prefer to talk to us?"
+
+Contact Us CTA area.
+
+Keep actual phone/email as configurable constants/placeholders if not provided.
+
+Do NOT invent contact details.
+
+==================================================
+15. FOOTER
+==================================================
+
+Footer:
+
+AURASPHERE WELLNESS 360
+
+"Your Health. Your Wellness. Your Complete 360° Care."
+
+Links:
+
+Healthcare
+Wellness
+Corporate Wellness
+Experts
+About
+Contact
+
+Social links:
+Only display if actual URLs are supplied.
+
+Footer should be clean and premium.
+
+==================================================
+16. UI COMPONENT DESIGN
+==================================================
+
+Cards:
+- Rounded corners
+- Subtle border
+- Premium shadows
+- Dark/light contrast
+- Small blue/cyan accents
+- No excessive glassmorphism
+
+Buttons:
+Primary:
+Electric blue → cyan gradient
+
+Secondary:
+Transparent / dark with silver border
+
+Hover:
+Subtle glow and elevation.
+
+Icons:
+Use a consistent icon library.
+
+Do NOT mix random icon styles.
+
+==================================================
+17. IMAGERY
+==================================================
+
+Use imagery that communicates:
+
+- Doctors
+- Healthcare
+- Yoga
+- Meditation
+- Corporate wellness
+- Fitness
+- Nutrition
+- Mental well-being
+- Team activities
+
+Prefer:
+- Premium realistic photography
+- Clean compositions
+- Diverse Indian workplace/healthcare context where appropriate
+
+Avoid:
+- Obviously fake AI-looking people
+- Overly posed stock photos
+- Excessive imagery
+- Medical horror imagery
+
+Where images are unavailable, use elegant gradient/abstract visual placeholders rather than broken images.
+
+Create a centralized image configuration so images can easily be replaced later.
+
+==================================================
+18. MICRO-INTERACTIONS
+==================================================
+
+Use subtle animation:
+
+- Hero fade-in
+- Card hover
+- Scroll reveal
+- Button hover
+- Section transitions
+- Mobile menu animation
+
+Do not make every element move.
+
+Respect:
+
+prefers-reduced-motion
+
+==================================================
+19. ACCESSIBILITY
+==================================================
+
+Implement:
+
+- Semantic HTML
+- Proper heading hierarchy
+- Alt text
+- Keyboard navigation
+- Visible focus states
+- Accessible buttons
+- Accessible mobile menu
+- Good color contrast
+- Reduced motion support
+
+Do not rely on color alone to communicate information.
+
+==================================================
+20. SEO
+==================================================
+
+Implement static SEO foundations.
+
+Title:
+AURASPHERE Wellness 360 | Healthcare & Corporate Wellness
+
+Meta description:
+"AURASPHERE Wellness 360 brings healthcare, preventive care, wellness activities and corporate wellness solutions together in one integrated ecosystem."
+
+Add:
+- Open Graph metadata
+- Proper canonical structure
+- Semantic headings
+- robots.txt
+- sitemap-ready structure
+
+Do not keyword stuff.
+
+==================================================
+21. PERFORMANCE
+==================================================
+
+Optimize for mobile performance.
+
+Requirements:
+- Lazy-load below-fold images
+- Responsive images
+- Avoid unnecessarily huge assets
+- Avoid excessive JavaScript
+- Avoid heavy animation libraries unless necessary
+- Good Lighthouse performance
+- Good Core Web Vitals
+- Mobile-first loading
+
+==================================================
+22. RESPONSIVE BREAKPOINTS
+==================================================
+
+Design for:
+
+360px
+375px
+390px
+414px
+768px
+1024px
+1280px
+1440px+
+
+Check carefully for:
+
+- Text overflow
+- Horizontal scrolling
+- Broken cards
+- Navigation overflow
+- Image cropping
+- Button wrapping
+- Excessive whitespace
+- Section heights
+
+There must be NO accidental horizontal scrollbar.
+
+==================================================
+23. DESIGN DETAILS
+==================================================
+
+Use a modern typography system.
+
+Headings:
+Strong, premium, geometric sans-serif.
+
+Body:
+Highly readable modern sans-serif.
+
+Use:
+- large editorial headings
+- short paragraphs
+- generous spacing
+- strong hierarchy
+
+Do not use huge text that destroys mobile usability.
+
+Use subtle:
+- orbital lines
+- circular shapes
+- healthcare cross motifs
+- wellness curves
+- sphere-inspired elements
+
+These should reference the AURASPHERE brand without becoming decorative clutter.
+
+==================================================
+24. SERVICE DATA ARCHITECTURE
+==================================================
+
+Do NOT hardcode every service directly inside JSX.
+
+Create structured data.
+
+Example:
+
+{
+  name: "Meditation",
+  category: "Mind & Well-being",
+  description: "...",
+  icon: "...",
+  cta: "Contact Us"
+}
+
+This is important because Stage 2 may introduce:
+- Booking
+- Pricing
+- Availability
+- Trainer assignment
+- Corporate packages
+- Admin dashboard
+
+The frontend should be ready for this evolution.
+
+==================================================
+25. MVP BEHAVIOR
+==================================================
+
+EVERY SERVICE MUST HAVE:
+
+Contact Us
+
+No:
+- Buy Now
+- Book Now
+- Pay Now
+- Add to Cart
+- Fake Appointment Available
+- Fake Doctor Availability
+- Fake Lab Pricing
+- Fake Pharmacy inventory
+
+Unless explicitly provided later.
+
+If something is not implemented, do not pretend that it works.
+
+==================================================
+26. REFERENCE WEBSITE
+==================================================
+
+Use SecondMedic as a HIGH-LEVEL INFORMATION ARCHITECTURE REFERENCE:
+
+https://www.secondmedic.com/
+
+Reference concepts such as:
+- healthcare service navigation
+- doctor consultation
+- pharmacy
+- lab tests
+- health services
+- clean service cards
+- professional healthcare presentation
+
+BUT:
+
+DO NOT CLONE SecondMedic.
+
+Do not copy:
+- exact layouts
+- exact colors
+- exact wording
+- exact components
+- exact visual design
+
+AURASPHERE must have its own identity.
+
+==================================================
+27. SOURCE MATERIAL
+==================================================
+
+The client has supplied:
+
+1. AURASPHERE logo/reference visuals
+2. Wellness activities list
+3. Doctor profiles
+4. Kunjan Paul CPR & First Aid profile
+5. Kunjan Paul Mental Well-being profile
+6. Kunjan Paul Nutrition profile
+7. Kunjan Paul Sound Healing profile
+
+When implementing expert information:
+
+USE ONLY INFORMATION SUPPORTED BY THE PROVIDED PROFILES.
+
+Do not invent:
+- credentials
+- years of experience
+- awards
+- statistics
+- client numbers
+- hospitals
+- testimonials
+- success rates
+- medical outcomes
+
+If information is missing, simply omit it.
+
+==================================================
+28. IMPORTANT CONTENT RULE
+==================================================
+
+Do not generate fake testimonials.
+
+Do not generate fake statistics such as:
+"10,000+ employees"
+"500+ companies"
+"99% satisfaction"
+
+Do not generate fake certifications.
+
+Do not generate fake patient outcomes.
+
+Do not generate fake partner logos.
+
+Do not generate fake reviews.
+
+The website should look premium WITHOUT fabricating credibility.
+
+==================================================
+29. FUTURE-READY ARCHITECTURE
+==================================================
+
+Even though this is static:
+
+Prepare the code for future Stage 2.
+
+Future possibilities:
+
+- User accounts
+- Doctor booking
+- Appointment scheduling
+- Pharmacy
+- Lab booking
+- Online payments
+- Corporate enquiry management
+- Expert availability
+- Admin dashboard
+- CMS
+- Database
+- WhatsApp integration
+- Email notifications
+
+Do not implement these now.
+
+Just ensure the architecture does not make future integration unnecessarily difficult.
+
+==================================================
+30. FINAL QUALITY BAR
+==================================================
+
+Before considering the project complete:
+
+Test every page.
+
+Test:
+- Mobile 360px
+- Mobile 390px
+- Tablet
+- Desktop
+- Large desktop
+
+Check:
+- No console errors
+- No broken links
+- No missing images
+- No overflow
+- No layout shifts
+- No fake functionality
+- All CTAs lead to Contact
+- Navigation works
+- Mobile menu works
+- Contact form validation works
+- Expert cards work
+- Service categories work
+- Accessibility basics work
+
+The final website should look like a real premium healthcare/wellness company website ready to show to a client.
+
+DO NOT stop at a basic landing page.
+
+Build the complete Stage 1 static website with all major pages and service content described above.
+
+==================================================
+31. FINAL VISUAL TARGET
+==================================================
+
+The final feeling should be:
+
+"Imagine if a premium healthcare platform, a modern corporate wellness company and a futuristic wellness ecosystem were combined into one brand."
+
+AURASPHERE should feel:
+
+TRUSTED
+PREMIUM
+MODERN
+HUMAN
+TECH-ENABLED
+WELLNESS-FOCUSED
+
+Most importantly:
+
+It should feel like a REAL BRAND, not an AI-generated template.

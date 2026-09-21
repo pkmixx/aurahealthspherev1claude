@@ -1,0 +1,10 @@
+node_modules
+dist
+*.log
+.DS_Store
+screenshots
+scripts/.generated-originals
+
+# Client source material (large; kept locally, not versioned)
+*.pdf
+Aurasphere Image
