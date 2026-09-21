@@ -4,6 +4,7 @@ import type { Expert } from '@/data/experts'
 import { contactHref } from '@/lib/contact'
 import { ExpertPhoto } from './ExpertPhoto'
 import { ButtonLink } from './Button'
+import { EXPERT_NOTE } from '@/data/disclaimers'
 
 interface ExpertModalProps {
   expert: Expert | null
@@ -89,6 +90,7 @@ export function ExpertModal({ expert, onClose }: ExpertModalProps) {
                     </ul>
                   </section>
                 ))}
+                <p className="mt-8 border-t border-line-soft/70 pt-5 text-[0.8125rem] leading-relaxed text-muted">{EXPERT_NOTE}</p>
               </div>
             </div>
           </div>

@@ -13,6 +13,7 @@ const CorporateWellness = lazy(() => import('@/pages/CorporateWellness'))
 const Experts = lazy(() => import('@/pages/Experts'))
 const About = lazy(() => import('@/pages/About'))
 const Contact = lazy(() => import('@/pages/Contact'))
+const Disclaimer = lazy(() => import('@/pages/Disclaimer'))
 const NotFound = lazy(() => import('@/pages/NotFound'))
 
 export function App() {
@@ -29,6 +30,7 @@ export function App() {
             <Route path={ROUTES.experts.path} element={<Experts />} />
             <Route path={ROUTES.about.path} element={<About />} />
             <Route path={ROUTES.contact.path} element={<Contact />} />
+            <Route path={ROUTES.disclaimer.path} element={<Disclaimer />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>

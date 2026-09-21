@@ -59,6 +59,13 @@ export const ROUTES = {
     description:
       'Tell us what you need and we will help you find the right healthcare or wellness solution.',
   },
+  disclaimer: {
+    path: '/disclaimer',
+    label: 'Health Disclaimer',
+    title: 'Health Disclaimer | AURASPHERE Wellness 360',
+    description:
+      'Important health information: website content is for general awareness only and is not a substitute for professional medical advice.',
+  },
 } satisfies Record<string, RouteMeta>
 
 export type RouteKey = keyof typeof ROUTES

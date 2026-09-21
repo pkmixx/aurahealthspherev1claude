@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { ArrowRight, Building2, Check, User } from 'lucide-react'
 import { ROUTES } from '@/config/routes'
 import { IMAGES } from '@/config/images'
-import { AUDIENCES, CORPORATE_OFFERINGS, HEALTHCARE_SERVICES, PILLARS, WHY_US } from '@/data/services'
+import { AUDIENCES, CORPORATE_OFFERINGS, HEALTHCARE_SERVICES, PILLARS, WELLNESS_ACTIVITIES, WHY_US } from '@/data/services'
 import { EXPERTS } from '@/data/experts'
 import { useDocumentMeta } from '@/lib/hooks'
 import { contactHref } from '@/lib/contact'
@@ -19,6 +19,7 @@ import { ButtonLink } from '@/components/Button'
 import { Reveal } from '@/components/Reveal'
 import { Visual } from '@/components/Visual'
 import { OrbitRings } from '@/components/OrbitRings'
+import { AIFeatures } from '@/components/AIFeatures'
 
 export default function Home() {
   useDocumentMeta(ROUTES.home.title, ROUTES.home.description)
@@ -105,7 +106,7 @@ export default function Home() {
             id="wellness-heading"
             eyebrow="Wellness"
             title="Wellness That Fits Your Life"
-            description="Forty experiences across mind, movement, prevention and awareness — for individuals, groups and workplaces."
+            description={`${WELLNESS_ACTIVITIES.length} experiences across mind, movement, prevention and awareness — for individuals, groups and workplaces.`}
             className="mb-10 lg:mb-12"
           />
           <Reveal>
@@ -203,6 +204,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Upcoming — AI features (clearly labelled as planned) */}
+      <AIFeatures />
 
       {/* 7 — Built For People. Designed For Organisations. */}
       <section aria-labelledby="audience-heading" className="section-y">

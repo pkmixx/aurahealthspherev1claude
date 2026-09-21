@@ -40,6 +40,6 @@ export function formatEnquiry(e: Enquiry): string {
     '',
     e.message,
   ]
-    .filter((line) => line !== false && line !== undefined)
+    .filter((line): line is string => typeof line === 'string')
     .join('\n')
 }

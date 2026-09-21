@@ -11,6 +11,8 @@ import { PageHero } from '@/components/PageHero'
 import { ButtonLink } from '@/components/Button'
 import { ServiceCategory } from '@/components/ServiceCategory'
 import { CTASection } from '@/components/CTASection'
+import { HealthDisclaimer } from '@/components/HealthDisclaimer'
+import { WELLNESS_NOTE } from '@/data/disclaimers'
 
 type Filter = 'all' | WellnessCategoryId
 
@@ -173,6 +175,7 @@ export default function Wellness() {
             ))}
           </div>
         )}
+        <HealthDisclaimer note={WELLNESS_NOTE} showEmergency={false} className="mt-12 md:mt-16" />
       </section>
 
       <CTASection

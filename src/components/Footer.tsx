@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { Mail, MapPin, Phone } from 'lucide-react'
 import { CONTACT, SITE, SOCIAL_LINKS } from '@/config/site'
 import { FOOTER_LINKS } from '@/data/navigation'
+import { EMERGENCY_NOTE, SHORT_DISCLAIMER } from '@/data/disclaimers'
 import { HEALTHCARE_SERVICES } from '@/data/services'
 import { contactHref } from '@/lib/contact'
 import { Logo } from './Logo'
@@ -87,9 +88,24 @@ export function Footer() {
         </div>
 
         <div className="rule mt-14" />
-        <div className="mt-6 flex flex-col gap-4 text-sm text-muted sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-6 max-w-4xl space-y-2 text-[0.8125rem] leading-relaxed text-muted">
           <p>
-            © {year} {SITE.name}. All rights reserved.
+            <strong className="font-semibold text-silver">Health disclaimer: </strong>
+            {SHORT_DISCLAIMER}{' '}
+            <Link to="/disclaimer" className="text-cyan underline-offset-4 hover:underline">
+              Read more
+            </Link>
+          </p>
+          <p>{EMERGENCY_NOTE}</p>
+        </div>
+        <div className="mt-4 flex flex-col gap-2 text-sm text-muted sm:flex-row sm:items-center sm:justify-between">
+          <p className="flex flex-wrap items-center gap-x-5">
+            <span>
+              © {year} {SITE.name}. All rights reserved.
+            </span>
+            <Link to="/disclaimer" className="inline-flex min-h-11 items-center hover:text-white">
+              Health Disclaimer
+            </Link>
           </p>
           {SOCIAL_LINKS.length > 0 && (
             <ul className="flex flex-wrap gap-4" aria-label="Social media">
