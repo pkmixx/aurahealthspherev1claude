@@ -4,6 +4,15 @@ const BASE = process.env.QA_BASE || 'http://localhost:4173'
 const OUT = process.argv[2] || 'screenshots'
 const browser = await chromium.launch({ channel: 'chrome' })
 const results = []
+const visible = (loc, timeout = 4000) => loc.waitFor({ state: 'visible', timeout }).then(() => true, () => false)
+const valueIs = async (loc, expected, timeout = 4000) => {
+  const end = Date.now() + timeout
+  while (Date.now() < end) {
+    try { if ((await loc.inputValue()) === expected) return true } catch {}
+    await new Promise((r) => setTimeout(r, 100))
+  }
+  return false
+}
 const check = (name, ok, extra = '') => results.push(`${ok ? 'PASS' : 'FAIL'}  ${name}${extra ? '  — ' + extra : ''}`)
 
 const m = await (await browser.newContext({ viewport: { width: 390, height: 844 }, reducedMotion: 'reduce' })).newPage()
@@ -45,9 +54,9 @@ check('empty search shows message', await m.getByText('No activities match').isV
 
 // Expert modal
 await m.goto(BASE + '/experts')
-await m.getByRole('button', { name: 'View profile of Kunjan Paul' }).click()
+await m.getByRole('button', { name: 'View profile of Kunjan Paul' }).click({ timeout: 8000 })
 const modal = m.locator('dialog[open]')
-check('expert modal opens', await modal.isVisible())
+check('expert modal opens', await visible(modal))
 check('modal URL updated', m.url().includes('expert=kunjan-paul'))
 await m.screenshot({ path: `${OUT}/ix-expert-modal.png` })
 await m.keyboard.press('Escape')
@@ -57,7 +66,7 @@ await m.goto(BASE + '/experts?expert=dr-rohini-khera-bhatt')
 check('modal deep link opens', await m.locator('dialog[open]').waitFor({ state: 'visible', timeout: 3000 }).then(() => true, () => false))
 await m.getByRole('dialog').getByRole('link', { name: 'Contact Us' }).click()
 await m.waitForURL('**/contact**')
-check('modal CTA prefills interest', (await m.locator('#f-interest').inputValue()) === 'Doctor Consultation')
+check('modal CTA prefills interest', await valueIs(m.locator('#f-interest'), 'Doctor Consultation'))
 check('modal CTA prefills message', (await m.locator('#f-message').inputValue()).includes('Dr. Rohini Khera Bhatt'))
 
 // Contact validation
@@ -88,7 +97,7 @@ await m.screenshot({ path: `${OUT}/ix-contact-success.png` })
 await m.goto(BASE + '/healthcare')
 await m.locator('#lab-tests').getByRole('link', { name: 'Contact us about Lab Tests' }).click()
 await m.waitForURL('**/contact**')
-check('healthcare CTA prefills Lab Tests', (await m.locator('#f-interest').inputValue()) === 'Lab Tests')
+check('healthcare CTA prefills Lab Tests', await valueIs(m.locator('#f-interest'), 'Lab Tests'))
 
 // Desktop: dropdown + tabs keyboard
 const d = await (await browser.newContext({ viewport: { width: 1280, height: 900 }, reducedMotion: 'reduce' })).newPage()

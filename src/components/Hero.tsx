@@ -28,7 +28,7 @@ export function Hero() {
             <span aria-hidden className="h-px w-6 bg-current opacity-70" />
             Healthcare · Wellness · Workplace
           </p>
-          <h1 className="animate-fade-up text-[2.5rem] leading-[1.04] font-semibold tracking-[-0.03em] [animation-delay:80ms] xs:text-[2.75rem] sm:text-6xl lg:text-[4.25rem] xl:text-[4.75rem]">
+          <h1 className="animate-fade-up text-[2.5rem] leading-[1.04] font-semibold tracking-[-0.03em] [animation-delay:80ms] xs:text-[2.75rem] sm:text-6xl lg:text-[3.5rem] xl:text-[4.5rem]">
             Your Health.
             <br />
             Your Wellness.
