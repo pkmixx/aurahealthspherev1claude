@@ -153,6 +153,13 @@ await m.evaluate(() => window.scrollTo(0, 2000))
 await m.waitForTimeout(500)
 await m.screenshot({ path: `${OUT}/ix-whatsapp-mobile.png` })
 
+// Footer social icons (placeholders until URLs are supplied)
+const social = d.getByRole('list', { name: 'Social media' })
+check('footer social icons shown', (await social.locator('li').count()) === 5)
+await social.scrollIntoViewIfNeeded()
+await d.waitForTimeout(300)
+await d.screenshot({ path: `${OUT}/ix-footer-social.png` })
+
 check('no runtime errors', errors.length === 0, errors.join(' | '))
 await browser.close()
 console.log(results.join('\n'))

@@ -48,10 +48,20 @@ export const CONTACT: ContactDetails = {
   hours: null,
 }
 
+export type SocialPlatform = 'instagram' | 'facebook' | 'linkedin' | 'youtube' | 'x'
+
 export interface SocialLink {
+  platform: SocialPlatform
   label: string
-  url: string
+  /** Profile URL from the client. `null` shows the icon as "coming soon" (not clickable). */
+  url: string | null
 }
 
-/** Only rendered when real URLs are supplied. */
-export const SOCIAL_LINKS: SocialLink[] = []
+/** Footer social icons. Fill in each URL once the client supplies it. */
+export const SOCIAL_LINKS: SocialLink[] = [
+  { platform: 'instagram', label: 'Instagram', url: null },
+  { platform: 'facebook', label: 'Facebook', url: null },
+  { platform: 'linkedin', label: 'LinkedIn', url: null },
+  { platform: 'youtube', label: 'YouTube', url: null },
+  { platform: 'x', label: 'X (Twitter)', url: null },
+]

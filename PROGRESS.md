@@ -45,7 +45,7 @@ _Last updated: 2026-09-22_
 1. Client review:
    - AI imagery acceptable? Real photos can be swapped in with `scripts/import-photo.py`.
    - Remaining contact details: address, hours (`src/config/site.ts`).
-   - Social URLs.
+   - Social URLs: footer shows Instagram, Facebook, LinkedIn, YouTube and X icons as "coming soon"; fill in `url` for each in `SOCIAL_LINKS` (`src/config/site.ts`), unused platforms can be removed.
    - Production domain (`VITE_SITE_URL`).
    - Legal review of `src/data/disclaimers.ts`.
 2. Deploy: ✅ **Live 2026-09-22 at https://aurasphere.co.in** (`www.` and all `http://` requests 301 → `https://aurasphere.co.in`, path and query kept). GCP VM `aurasphere`, project `visionproject-501207`, zone `asia-south1-c`, static IP `34.47.208.183` (`aurasip`). DNS is at GoDaddy (A records → the IP). Ubuntu 24.04 + Apache 2; site at `/var/www/aurasphere`, vhosts `/etc/apache2/sites-available/aurasphere.conf` + `aurasphere-le-ssl.conf` (`FallbackResource /index.html` for SPA routes, long cache on `/assets`). Let's Encrypt cert via certbot (no email registered), auto-renews via `certbot.timer`. Firewall rules `default-allow-http` / `default-allow-https` (tags `http-server`, `https-server`). Redeploy:
@@ -64,7 +64,7 @@ _Last updated: 2026-09-22_
 - **Gemini image generation:** credits used up (402). No longer needed, since the images came from Canva. `scripts/generate-images.py` is kept as an alternative.
 - **Canva:** ✅ authenticated 2026-09-21 and used to generate all 13 site images.
 - **Nebius (`NEBIUS_API_KEY`):** checked 2026-09-21. The key only gives access to text models (Qwen, DeepSeek, GLM, Kimi…), and the image-generation endpoints return 404. Not usable for images.
-- **Client inputs needed:** WhatsApp, address, hours (`src/config/site.ts`), social URLs, production domain (`VITE_SITE_URL`), and legal review of the disclaimer copy (`src/data/disclaimers.ts`). Phone and support email were supplied 2026-09-21.
+- **Client inputs needed:** address, hours (`src/config/site.ts`), social URLs, and legal review of the disclaimer copy (`src/data/disclaimers.ts`). Phone and support email were supplied 2026-09-21; WhatsApp (same number) and domain 2026-09-22.
 
 ## Key decisions (and why)
 

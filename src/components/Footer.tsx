@@ -6,6 +6,7 @@ import { EMERGENCY_NOTE, SHORT_DISCLAIMER } from '@/data/disclaimers'
 import { HEALTHCARE_SERVICES } from '@/data/services'
 import { contactHref } from '@/lib/contact'
 import { Logo } from './Logo'
+import { SocialIcon } from './SocialIcon'
 import { ButtonLink } from './Button'
 
 export function Footer() {
@@ -23,6 +24,32 @@ export function Footer() {
             <p className="mt-3 text-[0.9375rem] text-muted">
               Integrated healthcare, wellness and corporate well-being solutions designed around people.
             </p>
+            {SOCIAL_LINKS.length > 0 && (
+              <ul className="mt-6 flex flex-wrap gap-3" aria-label="Social media">
+                {SOCIAL_LINKS.map((s) => {
+                  const cls = 'grid size-11 place-items-center rounded-full border border-line bg-navy-900/60 transition-colors'
+                  return (
+                    <li key={s.platform}>
+                      {s.url ? (
+                        <a
+                          href={s.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`${s.label} (opens in a new tab)`}
+                          className={`${cls} text-silver hover:border-cyan/60 hover:text-cyan`}
+                        >
+                          <SocialIcon platform={s.platform} />
+                        </a>
+                      ) : (
+                        <span role="img" aria-label={`${s.label}, coming soon`} title={`${s.label}: coming soon`} className={`${cls} text-muted/70`}>
+                          <SocialIcon platform={s.platform} />
+                        </span>
+                      )}
+                    </li>
+                  )
+                })}
+              </ul>
+            )}
           </div>
 
           <nav aria-label="Footer">
@@ -107,17 +134,6 @@ export function Footer() {
               Health Disclaimer
             </Link>
           </p>
-          {SOCIAL_LINKS.length > 0 && (
-            <ul className="flex flex-wrap gap-4" aria-label="Social media">
-              {SOCIAL_LINKS.map((s) => (
-                <li key={s.url}>
-                  <a href={s.url} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center hover:text-white">
-                    {s.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          )}
         </div>
       </div>
     </footer>
