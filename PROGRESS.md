@@ -48,7 +48,7 @@ _Last updated: 2026-09-22_
    - Social URLs.
    - Production domain (`VITE_SITE_URL`).
    - Legal review of `src/data/disclaimers.ts`.
-2. Deploy: ✅ **Live 2026-09-22 at https://aurasphere.co.in** (and `www.`; HTTP → HTTPS 301). GCP VM `aurasphere`, project `visionproject-501207`, zone `asia-south1-c`, static IP `34.47.208.183` (`aurasip`). DNS is at GoDaddy (A records → the IP). Ubuntu 24.04 + Apache 2; site at `/var/www/aurasphere`, vhosts `/etc/apache2/sites-available/aurasphere.conf` + `aurasphere-le-ssl.conf` (`FallbackResource /index.html` for SPA routes, long cache on `/assets`). Let's Encrypt cert via certbot (no email registered), auto-renews via `certbot.timer`. Firewall rules `default-allow-http` / `default-allow-https` (tags `http-server`, `https-server`). Redeploy:
+2. Deploy: ✅ **Live 2026-09-22 at https://aurasphere.co.in** (`www.` and all `http://` requests 301 → `https://aurasphere.co.in`, path and query kept). GCP VM `aurasphere`, project `visionproject-501207`, zone `asia-south1-c`, static IP `34.47.208.183` (`aurasip`). DNS is at GoDaddy (A records → the IP). Ubuntu 24.04 + Apache 2; site at `/var/www/aurasphere`, vhosts `/etc/apache2/sites-available/aurasphere.conf` + `aurasphere-le-ssl.conf` (`FallbackResource /index.html` for SPA routes, long cache on `/assets`). Let's Encrypt cert via certbot (no email registered), auto-renews via `certbot.timer`. Firewall rules `default-allow-http` / `default-allow-https` (tags `http-server`, `https-server`). Redeploy:
    ```bash
    VITE_SITE_URL=https://aurasphere.co.in npm run build && SITE_URL=https://aurasphere.co.in npm run sitemap
    tar --force-local -czf dist.tgz -C dist .
