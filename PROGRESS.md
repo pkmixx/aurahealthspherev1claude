@@ -48,14 +48,14 @@ _Last updated: 2026-09-22_
    - Social URLs.
    - Production domain (`VITE_SITE_URL`).
    - Legal review of `src/data/disclaimers.ts`.
-2. Deploy: ✅ **Live on GCP 2026-09-22 at http://34.47.208.183** (VM `aurasphere`, project `visionproject-501207`, zone `asia-south1-c`, static IP `aurasip`). Ubuntu 24.04 + Apache 2; site at `/var/www/aurasphere`, vhost `/etc/apache2/sites-available/aurasphere.conf` (`FallbackResource /index.html` for SPA routes, long cache on `/assets`). Firewall rule `default-allow-http` (tag `http-server`). Redeploy:
+2. Deploy: ✅ **Live 2026-09-22 at https://aurasphere.co.in** (and `www.`; HTTP → HTTPS 301). GCP VM `aurasphere`, project `visionproject-501207`, zone `asia-south1-c`, static IP `34.47.208.183` (`aurasip`). DNS is at GoDaddy (A records → the IP). Ubuntu 24.04 + Apache 2; site at `/var/www/aurasphere`, vhosts `/etc/apache2/sites-available/aurasphere.conf` + `aurasphere-le-ssl.conf` (`FallbackResource /index.html` for SPA routes, long cache on `/assets`). Let's Encrypt cert via certbot (no email registered), auto-renews via `certbot.timer`. Firewall rules `default-allow-http` / `default-allow-https` (tags `http-server`, `https-server`). Redeploy:
    ```bash
-   VITE_SITE_URL=http://34.47.208.183 npm run build
+   VITE_SITE_URL=https://aurasphere.co.in npm run build && SITE_URL=https://aurasphere.co.in npm run sitemap
    tar --force-local -czf dist.tgz -C dist .
    gcloud compute scp dist.tgz aurasphere:/tmp/ --zone asia-south1-c
    gcloud compute ssh aurasphere --zone asia-south1-c --command "sudo rm -rf /var/www/aurasphere/* && sudo tar -xzf /tmp/dist.tgz -C /var/www/aurasphere && sudo chown -R www-data:www-data /var/www/aurasphere && rm /tmp/dist.tgz"
    ```
-   Still to do once the client gives a domain: point DNS at the IP, rebuild with the domain as `VITE_SITE_URL`, add HTTPS (certbot `--apache`, open tcp:443), then `SITE_URL=… npm run sitemap` and add the sitemap line to `robots.txt`.
+   **Enquiry form hidden** (client request 2026-09-22): Contact shows phone + email only. Restore with `ENQUIRY_FORM_ENABLED = true` in `src/config/site.ts`; `qa:interactions` follows the flag.
 3. Stage 2 planning: see `docs/STAGE-2.md`.
 
 ## Blockers / open items

@@ -18,6 +18,12 @@ export const SITE = {
   ogImage: '/og-image.jpg',
 } as const
 
+/**
+ * Shows the enquiry form on the Contact page. Hidden for now at the client's
+ * request (2026-09-22): visitors see phone and email only. Set to `true` to restore.
+ */
+export const ENQUIRY_FORM_ENABLED = false
+
 export interface ContactDetails {
   phone: string | null
   /** Digits only with country code, e.g. "919999999999". Enables the WhatsApp link. */

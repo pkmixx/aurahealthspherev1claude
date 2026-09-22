@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 
-# Add the absolute sitemap URL once the production domain is confirmed, e.g.
-# Sitemap: https://YOUR-DOMAIN/sitemap.xml
+Sitemap: https://aurasphere.co.in/sitemap.xml

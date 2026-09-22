@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, type FormEvent } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { AlertCircle, CheckCircle2, Clock, Mail, MapPin, MessageCircle, Phone } from 'lucide-react'
 import { ROUTES } from '@/config/routes'
-import { CONTACT } from '@/config/site'
+import { CONTACT, ENQUIRY_FORM_ENABLED } from '@/config/site'
 import { ENQUIRY_INTERESTS, isEnquiryInterest } from '@/data/enquiry'
 import { useDocumentMeta } from '@/lib/hooks'
 import { formatEnquiry, submitEnquiry, type Enquiry } from '@/services/enquiry'
@@ -123,12 +123,17 @@ export default function Contact() {
             Tell us what you need. <span className="text-gradient">We'll help.</span>
           </>
         }
-        description="Healthcare, wellness or a corporate program — share a few details and our team will guide you to the right solution."
+        description={
+          ENQUIRY_FORM_ENABLED
+            ? 'Healthcare, wellness or a corporate program — share a few details and our team will guide you to the right solution.'
+            : 'Healthcare, wellness or a corporate program — call or email our team and we will guide you to the right solution.'
+        }
       />
 
       <section id="enquiry" aria-label="Enquiry" className="container-x scroll-mt-24 pb-16 sm:pb-24">
-        <div className="grid gap-8 lg:grid-cols-[1.35fr_1fr] lg:gap-10">
-          {/* Form */}
+        <div className={ENQUIRY_FORM_ENABLED ? 'grid gap-8 lg:grid-cols-[1.35fr_1fr] lg:gap-10' : 'mx-auto max-w-2xl'}>
+          {/* Form (hidden while ENQUIRY_FORM_ENABLED is false) */}
+          {ENQUIRY_FORM_ENABLED && (
           <Reveal className="card rounded-[1.75rem] p-5 xs:p-6 sm:p-10">
             {status === 'done' && submitted ? (
               <div ref={successRef} tabIndex={-1} className="outline-none" role="status">
@@ -301,13 +306,14 @@ export default function Contact() {
               </form>
             )}
           </Reveal>
+          )}
 
           {/* Direct contact */}
           <Reveal delay={100} as="aside" aria-labelledby="talk-heading" className="flex flex-col gap-4">
             <div className="card relative overflow-hidden rounded-[1.75rem] p-6 sm:p-8">
               <div aria-hidden className="absolute -top-20 -right-20 size-56 rounded-full bg-electric/25 blur-3xl" />
               <h2 id="talk-heading" className="relative text-2xl font-semibold">
-                Prefer to talk to us?
+                {ENQUIRY_FORM_ENABLED ? 'Prefer to talk to us?' : 'Talk to us'}
               </h2>
               <p className="relative mt-2 text-muted">Reach our team directly — we're happy to help you choose.</p>
             </div>

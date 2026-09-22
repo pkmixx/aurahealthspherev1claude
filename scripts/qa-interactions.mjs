@@ -14,6 +14,9 @@ const valueIs = async (loc, expected, timeout = 4000) => {
   return false
 }
 const check = (name, ok, extra = '') => results.push(`${ok ? 'PASS' : 'FAIL'}  ${name}${extra ? '  — ' + extra : ''}`)
+// Form checks follow ENQUIRY_FORM_ENABLED in src/config/site.ts.
+const { readFileSync } = await import('node:fs')
+const FORM = /ENQUIRY_FORM_ENABLED = true/.test(readFileSync('src/config/site.ts', 'utf8'))
 
 const m = await (await browser.newContext({ viewport: { width: 390, height: 844 }, reducedMotion: 'reduce' })).newPage()
 const errors = []
@@ -66,6 +69,7 @@ await m.goto(BASE + '/experts?expert=dr-rohini-khera-bhatt')
 check('modal deep link opens', await m.locator('dialog[open]').waitFor({ state: 'visible', timeout: 3000 }).then(() => true, () => false))
 await m.getByRole('dialog').getByRole('link', { name: 'Contact Us' }).click()
 await m.waitForURL('**/contact**')
+if (FORM) {
 check('modal CTA prefills interest', await valueIs(m.locator('#f-interest'), 'Doctor Consultation'))
 check('modal CTA prefills message', (await m.locator('#f-message').inputValue()).includes('Dr. Rohini Khera Bhatt'))
 
@@ -92,12 +96,20 @@ await m.waitForTimeout(200)
 check('success state shown', await m.getByText('Thank you, Asha.').isVisible())
 check('success is honest (not sent)', await m.getByText('not been sent').isVisible())
 await m.screenshot({ path: `${OUT}/ix-contact-success.png` })
+} else {
+// Form hidden: Contact shows phone and email only
+await m.goto(BASE + '/contact')
+check('enquiry form hidden', (await m.locator('form, #f-message').count()) === 0)
+check('phone link shown', await visible(m.locator('a[href^="tel:"]').first()))
+check('email link shown', await visible(m.locator('main a[href^="mailto:"]').first()))
+await m.screenshot({ path: `${OUT}/ix-contact-direct.png` })
+}
 
 // Healthcare CTA prefill
 await m.goto(BASE + '/healthcare')
 await m.locator('#lab-tests').getByRole('link', { name: 'Contact us about Lab Tests' }).click()
 await m.waitForURL('**/contact**')
-check('healthcare CTA prefills Lab Tests', await valueIs(m.locator('#f-interest'), 'Lab Tests'))
+if (FORM) check('healthcare CTA prefills Lab Tests', await valueIs(m.locator('#f-interest'), 'Lab Tests'))
 
 // Desktop: dropdown + tabs keyboard
 const d = await (await browser.newContext({ viewport: { width: 1280, height: 900 }, reducedMotion: 'reduce' })).newPage()
