@@ -33,11 +33,15 @@ export interface ContactDetails {
   hours: string | null
 }
 
+/** Greeting pre-filled when a visitor opens WhatsApp chat; they can edit it before sending. */
+export const WHATSAPP_GREETING = "Hi AURASPHERE, I'd like to know more about your services."
+
 /** Supplied by the client (2026-09-21). Remaining nulls: still to be provided. */
 export const CONTACT: ContactDetails = {
   /** Contact & enquiries */
   phone: '+91 73879 96455',
-  whatsapp: null,
+  /** WhatsApp: same number as phone (client confirmed 2026-09-22) */
+  whatsapp: '917387996455',
   /** Support */
   email: 'aurasphere455@gmail.com',
   address: null,

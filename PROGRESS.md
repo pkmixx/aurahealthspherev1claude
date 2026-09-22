@@ -27,7 +27,7 @@ _Last updated: 2026-09-22_
 | Interaction QA (`scripts/qa-interactions.mjs`, 26 checks) | ✅ All pass |
 | Photography (13 slots, AI-generated via Canva) | ✅ Done. Client to confirm that AI imagery is acceptable |
 | Small images for subcategories (activities, corporate areas, category headers, menus) | ✅ Done. All 40 activities, 10 corporate areas, 18 menu items and 6 category/subcategory headers |
-| Client contact details                 | ✅ Phone + support email added. WhatsApp, address, hours and socials still pending |
+| Client contact details                 | ✅ Phone + support email + WhatsApp (same number) added. Address, hours and socials still pending |
 
 ## Resume here — next steps
 
@@ -44,7 +44,7 @@ _Last updated: 2026-09-22_
 
 1. Client review:
    - AI imagery acceptable? Real photos can be swapped in with `scripts/import-photo.py`.
-   - Remaining contact details: WhatsApp, address, hours (`src/config/site.ts`).
+   - Remaining contact details: address, hours (`src/config/site.ts`).
    - Social URLs.
    - Production domain (`VITE_SITE_URL`).
    - Legal review of `src/data/disclaimers.ts`.
@@ -55,6 +55,7 @@ _Last updated: 2026-09-22_
    gcloud compute scp dist.tgz aurasphere:/tmp/ --zone asia-south1-c
    gcloud compute ssh aurasphere --zone asia-south1-c --command "sudo rm -rf /var/www/aurasphere/* && sudo tar -xzf /tmp/dist.tgz -C /var/www/aurasphere && sudo chown -R www-data:www-data /var/www/aurasphere && rm /tmp/dist.tgz"
    ```
+   **Floating WhatsApp button** on every page (bottom-right, label slides out on hover) opens `wa.me/917387996455` with a pre-filled greeting (`WHATSAPP_GREETING` in `src/config/site.ts`); back-to-top sits above it.
    **Enquiry form hidden** (client request 2026-09-22): Contact shows phone + email only. Restore with `ENQUIRY_FORM_ENABLED = true` in `src/config/site.ts`; `qa:interactions` follows the flag.
 3. Stage 2 planning: see `docs/STAGE-2.md`.
 

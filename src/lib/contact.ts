@@ -6,6 +6,7 @@
  * (e.g. return `/book/${serviceId}` when bookingEnabled is true).
  */
 import { ROUTES } from '@/config/routes'
+import { CONTACT, WHATSAPP_GREETING } from '@/config/site'
 import type { EnquiryInterest } from '@/data/enquiry'
 
 export interface ContactIntent {
@@ -20,4 +21,10 @@ export function contactHref(intent: ContactIntent = {}): string {
   if (intent.topic) params.set('topic', intent.topic)
   const qs = params.toString()
   return `${ROUTES.contact.path}${qs ? `?${qs}` : ''}#enquiry`
+}
+
+/** wa.me chat link with the greeting pre-filled, or null when no WhatsApp number is set. */
+export function whatsappHref(message: string = WHATSAPP_GREETING): string | null {
+  if (!CONTACT.whatsapp) return null
+  return `https://wa.me/${CONTACT.whatsapp}?text=${encodeURIComponent(message)}`
 }

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type FormEvent } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { AlertCircle, CheckCircle2, Clock, Mail, MapPin, MessageCircle, Phone } from 'lucide-react'
 import { ROUTES } from '@/config/routes'
+import { whatsappHref } from '@/lib/contact'
 import { CONTACT, ENQUIRY_FORM_ENABLED } from '@/config/site'
 import { ENQUIRY_INTERESTS, isEnquiryInterest } from '@/data/enquiry'
 import { useDocumentMeta } from '@/lib/hooks'
@@ -334,7 +335,7 @@ export default function Contact() {
                 icon={<MessageCircle aria-hidden className="size-5" />}
                 label="WhatsApp"
                 value="Chat with us"
-                href={`https://wa.me/${CONTACT.whatsapp}`}
+                href={whatsappHref() ?? undefined}
                 external
               />
             )}

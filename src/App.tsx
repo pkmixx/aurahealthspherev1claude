@@ -4,6 +4,7 @@ import { ROUTES } from '@/config/routes'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { ScrollToTop } from '@/components/ScrollToTop'
+import { WhatsAppButton } from '@/components/WhatsAppButton'
 import Home from '@/pages/Home'
 
 // Home is eagerly loaded for the fastest first paint; other pages are split.
@@ -37,6 +38,7 @@ export function App() {
       </main>
       <Footer />
       <ScrollToTop />
+      <WhatsAppButton />
     </>
   )
 }

@@ -133,6 +133,26 @@ await d.getByRole('link', { name: 'Explore Services' }).click()
 await d.waitForTimeout(500)
 check('Explore Services scrolls to services', (await d.locator('#services').evaluate((el) => el.getBoundingClientRect().top)) < 200)
 
+// Floating WhatsApp button
+const wa = d.getByRole('link', { name: /WhatsApp/ }).last()
+check('whatsapp button visible', await visible(wa))
+const waHref = (await wa.getAttribute('href')) || ''
+check('whatsapp link has number + greeting', waHref.startsWith('https://wa.me/917387996455?text=') && waHref.includes('AURASPHERE'), waHref)
+check('whatsapp opens in new tab', (await wa.getAttribute('target')) === '_blank')
+await wa.hover()
+await d.waitForTimeout(400)
+check('whatsapp label shows on hover', await d.getByText('Chat on WhatsApp').isVisible())
+await d.screenshot({ path: `${OUT}/ix-whatsapp-hover.png` })
+await d.mouse.move(10, 400)
+await d.evaluate(() => window.scrollTo(0, 2000))
+await d.waitForTimeout(500)
+const [waBox, topBox] = [await wa.boundingBox(), await d.getByRole('button', { name: 'Back to top' }).boundingBox()]
+check('back-to-top sits above whatsapp', !!waBox && !!topBox && topBox.y + topBox.height <= waBox.y, `top=${topBox?.y} wa=${waBox?.y}`)
+await m.goto(BASE + '/')
+await m.evaluate(() => window.scrollTo(0, 2000))
+await m.waitForTimeout(500)
+await m.screenshot({ path: `${OUT}/ix-whatsapp-mobile.png` })
+
 check('no runtime errors', errors.length === 0, errors.join(' | '))
 await browser.close()
 console.log(results.join('\n'))
