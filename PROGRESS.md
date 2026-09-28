@@ -126,3 +126,4 @@ SITE_URL=https://domain npm run sitemap               # sitemap after build
   - QA: 9 pages × 6 widths clean; 26/26 interaction checks pass.
 - **2026-09-28**
   - Primary email changed to **info@aurasphere.co.in** (replaces aurasphere455@gmail.com) in `CONTACT.email`; Contact card relabelled "Email us — contact & enquiries". Used by the Contact page, footer and mailto fallback.
+  - Deployed to https://aurasphere.co.in; verified live bundle serves info@aurasphere.co.in and no longer contains the old Gmail address. Pending: confirm MX records so the mailbox receives mail.
