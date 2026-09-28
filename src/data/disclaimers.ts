@@ -4,7 +4,7 @@
  */
 
 export const EMERGENCY_NOTE =
-  'In a medical emergency, do not use this website. Call 112 (India national emergency number) or go to the nearest hospital immediately.'
+  'In a medical emergency, please call 112 (India national emergency number) or go to the nearest hospital immediately.'
 
 export const SHORT_DISCLAIMER =
   'Information on this website is for general awareness only and is not a substitute for professional medical advice, diagnosis or treatment. Always consult a qualified healthcare professional about your health.'
