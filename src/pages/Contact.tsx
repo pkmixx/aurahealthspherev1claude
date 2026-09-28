@@ -326,7 +326,7 @@ export default function Contact() {
             />
             <ContactCard
               icon={<Mail aria-hidden className="size-5" />}
-              label="Email us — support"
+              label="Email us — contact & enquiries"
               value={CONTACT.email}
               href={CONTACT.email ? `mailto:${CONTACT.email}` : undefined}
             />

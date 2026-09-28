@@ -75,7 +75,7 @@ docs/            ARCHITECTURE.md, CONTENT.md, STAGE-2.md
 
 - **Contact details / social links** → `src/config/site.ts`.
   - Phone (contact & enquiries): **+91 73879 96455**
-  - Email (support): **aurasphere455@gmail.com**
+  - Email (primary): **info@aurasphere.co.in**
   - WhatsApp, address, hours and social URLs are still `null`. The UI hides or placeholders anything that's `null`.
 - **Services and activities** → `src/data/services.ts`
 - **Experts** → `src/data/experts.ts`

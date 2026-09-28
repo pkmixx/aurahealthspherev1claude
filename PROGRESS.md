@@ -64,7 +64,7 @@ _Last updated: 2026-09-22_
 - **Gemini image generation:** credits used up (402). No longer needed, since the images came from Canva. `scripts/generate-images.py` is kept as an alternative.
 - **Canva:** ✅ authenticated 2026-09-21 and used to generate all 13 site images.
 - **Nebius (`NEBIUS_API_KEY`):** checked 2026-09-21. The key only gives access to text models (Qwen, DeepSeek, GLM, Kimi…), and the image-generation endpoints return 404. Not usable for images.
-- **Client inputs needed:** address, hours (`src/config/site.ts`), social URLs, and legal review of the disclaimer copy (`src/data/disclaimers.ts`). Phone and support email were supplied 2026-09-21; WhatsApp (same number) and domain 2026-09-22.
+- **Client inputs needed:** address, hours (`src/config/site.ts`), social URLs, and legal review of the disclaimer copy (`src/data/disclaimers.ts`). Phone and support email were supplied 2026-09-21 (primary email changed to info@aurasphere.co.in 2026-09-28); WhatsApp (same number) and domain 2026-09-22.
 
 ## Key decisions (and why)
 
@@ -124,3 +124,5 @@ SITE_URL=https://domain npm run sitemap               # sitemap after build
     - Rejected candidates with embedded text (e.g. tax #2).
   - Added the client's phone (+91 73879 96455, contact & enquiries) and support email (aurasphere455@gmail.com). This enables the Contact page cards, the footer links and the form's "Send via email" fallback.
   - QA: 9 pages × 6 widths clean; 26/26 interaction checks pass.
+- **2026-09-28**
+  - Primary email changed to **info@aurasphere.co.in** (replaces aurasphere455@gmail.com) in `CONTACT.email`; Contact card relabelled "Email us — contact & enquiries". Used by the Contact page, footer and mailto fallback.

@@ -42,8 +42,8 @@ export const CONTACT: ContactDetails = {
   phone: '+91 73879 96455',
   /** WhatsApp: same number as phone (client confirmed 2026-09-22) */
   whatsapp: '917387996455',
-  /** Support */
-  email: 'aurasphere455@gmail.com',
+  /** Primary email (client, 2026-09-28; replaces aurasphere455@gmail.com) */
+  email: 'info@aurasphere.co.in',
   address: null,
   hours: null,
 }
