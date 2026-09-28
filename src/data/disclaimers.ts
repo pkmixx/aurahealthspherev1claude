@@ -58,9 +58,9 @@ export const DISCLAIMER_SECTIONS: DisclaimerSection[] = [
   },
   {
     id: 'no-guarantee',
-    title: 'No guaranteed outcomes',
+    title: 'Individual outcomes',
     body: [
-      'Health and wellness outcomes vary from person to person. AURASPHERE does not guarantee any specific medical, fitness or wellness result.',
+      'Every health and wellness journey is unique, and outcomes vary from person to person. Results depend on individual factors such as health, lifestyle and consistency, and our experts will work with you towards your personal goals.',
     ],
   },
   {
