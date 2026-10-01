@@ -132,3 +132,4 @@ SITE_URL=https://domain npm run sitemap               # sitemap after build
 - **2026-10-01**
   - Footer social icons linked: Instagram @aura_sphere360, Facebook (profile id 61594542996798), LinkedIn /in/aura-sphere-24212343b, X @aurasphere455. YouTube is still "coming soon".
   - `CONTACT.address` set to "Mumbai, Maharashtra" (city/state only; no street address). Shown on the Contact page and in the footer.
+  - Deployed to https://aurasphere.co.in; verified the live bundle contains all four social URLs and the new address.
