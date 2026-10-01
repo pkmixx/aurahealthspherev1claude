@@ -63,6 +63,6 @@ export const SOCIAL_LINKS: SocialLink[] = [
   { platform: 'instagram', label: 'Instagram', url: 'https://www.instagram.com/aura_sphere360/' },
   { platform: 'facebook', label: 'Facebook', url: 'https://www.facebook.com/profile.php?id=61594542996798' },
   { platform: 'linkedin', label: 'LinkedIn', url: 'https://www.linkedin.com/in/aura-sphere-24212343b' },
-  { platform: 'youtube', label: 'YouTube', url: null },
+  { platform: 'youtube', label: 'YouTube', url: 'https://www.youtube.com/@aura-sphere360' },
   { platform: 'x', label: 'X (Twitter)', url: 'https://x.com/aurasphere455' },
 ]
