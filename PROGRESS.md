@@ -27,7 +27,7 @@ _Last updated: 2026-09-22_
 | Interaction QA (`scripts/qa-interactions.mjs`, 26 checks) | ✅ All pass |
 | Photography (13 slots, AI-generated via Canva) | ✅ Done. Client to confirm that AI imagery is acceptable |
 | Small images for subcategories (activities, corporate areas, category headers, menus) | ✅ Done. All 40 activities, 10 corporate areas, 18 menu items and 6 category/subcategory headers |
-| Client contact details                 | ✅ Phone + support email + WhatsApp (same number) added. Address, hours and socials still pending |
+| Client contact details                 | ✅ Phone, email, WhatsApp, address (Mumbai, Maharashtra) and socials (Instagram, Facebook, LinkedIn, X) added. Hours and YouTube still pending |
 
 ## Resume here — next steps
 
@@ -45,7 +45,7 @@ _Last updated: 2026-09-22_
 1. Client review:
    - AI imagery acceptable? Real photos can be swapped in with `scripts/import-photo.py`.
    - Remaining contact details: address, hours (`src/config/site.ts`).
-   - Social URLs: footer shows Instagram, Facebook, LinkedIn, YouTube and X icons as "coming soon"; fill in `url` for each in `SOCIAL_LINKS` (`src/config/site.ts`), unused platforms can be removed.
+   - Social URLs: Instagram, Facebook, LinkedIn and X are linked (2026-10-01); YouTube is still "coming soon". Set or remove it in `SOCIAL_LINKS` (`src/config/site.ts`).
    - Production domain (`VITE_SITE_URL`).
    - Legal review of `src/data/disclaimers.ts`.
 2. Deploy: ✅ **Live 2026-09-22 at https://aurasphere.co.in** (`www.` and all `http://` requests 301 → `https://aurasphere.co.in`, path and query kept). GCP VM `aurasphere`, project `visionproject-501207`, zone `asia-south1-c`, static IP `34.47.208.183` (`aurasip`). DNS is at GoDaddy (A records → the IP). Ubuntu 24.04 + Apache 2; site at `/var/www/aurasphere`, vhosts `/etc/apache2/sites-available/aurasphere.conf` + `aurasphere-le-ssl.conf` (`FallbackResource /index.html` for SPA routes, long cache on `/assets`). Let's Encrypt cert via certbot (no email registered), auto-renews via `certbot.timer`. Firewall rules `default-allow-http` / `default-allow-https` (tags `http-server`, `https-server`). Redeploy:
@@ -64,7 +64,7 @@ _Last updated: 2026-09-22_
 - **Gemini image generation:** credits used up (402). No longer needed, since the images came from Canva. `scripts/generate-images.py` is kept as an alternative.
 - **Canva:** ✅ authenticated 2026-09-21 and used to generate all 13 site images.
 - **Nebius (`NEBIUS_API_KEY`):** checked 2026-09-21. The key only gives access to text models (Qwen, DeepSeek, GLM, Kimi…), and the image-generation endpoints return 404. Not usable for images.
-- **Client inputs needed:** address, hours (`src/config/site.ts`), social URLs, and legal review of the disclaimer copy (`src/data/disclaimers.ts`). Phone and support email were supplied 2026-09-21 (primary email changed to info@aurasphere.co.in 2026-09-28); WhatsApp (same number) and domain 2026-09-22.
+- **Client inputs needed:** hours (`src/config/site.ts`), YouTube URL, and legal review of the disclaimer copy (`src/data/disclaimers.ts`). Phone and support email were supplied 2026-09-21 (primary email changed to info@aurasphere.co.in 2026-09-28); WhatsApp (same number) and domain 2026-09-22.
 
 ## Key decisions (and why)
 
@@ -129,3 +129,6 @@ SITE_URL=https://domain npm run sitemap               # sitemap after build
   - Deployed to https://aurasphere.co.in; verified live bundle serves info@aurasphere.co.in and no longer contains the old Gmail address. Pending: confirm MX records so the mailbox receives mail.
   - Emergency note softened: "do not use this website" removed; now "In a medical emergency, please call 112 … or go to the nearest hospital immediately." Deployed and verified live.
   - Disclaimer section 06 softened: "No guaranteed outcomes" → "Individual outcomes" (outcomes vary person to person; no "does not guarantee" wording). Deployed; live check of the bundle still pending.
+- **2026-10-01**
+  - Footer social icons linked: Instagram @aura_sphere360, Facebook (profile id 61594542996798), LinkedIn /in/aura-sphere-24212343b, X @aurasphere455. YouTube is still "coming soon".
+  - `CONTACT.address` set to "Mumbai, Maharashtra" (city/state only; no street address). Shown on the Contact page and in the footer.

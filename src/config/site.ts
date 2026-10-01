@@ -44,7 +44,8 @@ export const CONTACT: ContactDetails = {
   whatsapp: '917387996455',
   /** Primary email (client, 2026-09-28; replaces aurasphere455@gmail.com) */
   email: 'info@aurasphere.co.in',
-  address: null,
+  /** Client, 2026-10-01: show city/state only */
+  address: 'Mumbai, Maharashtra',
   hours: null,
 }
 
@@ -59,9 +60,9 @@ export interface SocialLink {
 
 /** Footer social icons. Fill in each URL once the client supplies it. */
 export const SOCIAL_LINKS: SocialLink[] = [
-  { platform: 'instagram', label: 'Instagram', url: null },
-  { platform: 'facebook', label: 'Facebook', url: null },
-  { platform: 'linkedin', label: 'LinkedIn', url: null },
+  { platform: 'instagram', label: 'Instagram', url: 'https://www.instagram.com/aura_sphere360/' },
+  { platform: 'facebook', label: 'Facebook', url: 'https://www.facebook.com/profile.php?id=61594542996798' },
+  { platform: 'linkedin', label: 'LinkedIn', url: 'https://www.linkedin.com/in/aura-sphere-24212343b' },
   { platform: 'youtube', label: 'YouTube', url: null },
-  { platform: 'x', label: 'X (Twitter)', url: null },
+  { platform: 'x', label: 'X (Twitter)', url: 'https://x.com/aurasphere455' },
 ]
