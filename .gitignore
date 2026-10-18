@@ -9,3 +9,6 @@ scripts/.generated-originals
 *.pdf
 Aurasphere Image
 dist-ssr
+
+# SSH keys
+*.pem

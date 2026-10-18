@@ -22,7 +22,7 @@ _Last updated: 2026-10-18_
 | Health disclaimers (`/disclaimer` + contextual notes) | ✅ Done |
 | 404 page                               | ✅ Done |
 | SEO basics (meta, OG, canonical, robots, sitemap script) | ✅ Done |
-| SEO: prerendered routes, JSON-LD, keyword titles, real 404 (`npm run qa:seo`) | ✅ Built 2026-10-18. ⏳ Needs Apache rewrite + deploy (see below) |
+| SEO: prerendered routes, JSON-LD, keyword titles, real 404 (`npm run qa:seo`) | ✅ Live on AWS 2026-10-18 |
 | Automated QA script (`scripts/qa.mjs`) | ✅ Done — last run: no problems |
 | Visual QA pass (390 / 1024 / 1440 reviewed) | ✅ Done |
 | Interaction QA (`scripts/qa-interactions.mjs`, 26 checks) | ✅ All pass |
@@ -49,12 +49,18 @@ _Last updated: 2026-10-18_
    - Social URLs: all five footer icons are linked (2026-10-01) via `SOCIAL_LINKS` (`src/config/site.ts`).
    - Production domain (`VITE_SITE_URL`).
    - Legal review of `src/data/disclaimers.ts`.
-2. Deploy: ✅ **Live 2026-09-22 at https://aurasphere.co.in** (`www.` and all `http://` requests 301 → `https://aurasphere.co.in`, path and query kept). GCP VM `aurasphere`, project `visionproject-501207`, zone `asia-south1-c`, static IP `34.47.208.183` (`aurasip`). DNS is at GoDaddy (A records → the IP). Ubuntu 24.04 + Apache 2; site at `/var/www/aurasphere`, vhosts `/etc/apache2/sites-available/aurasphere.conf` + `aurasphere-le-ssl.conf` (`FallbackResource /index.html` for SPA routes, long cache on `/assets`). Let's Encrypt cert via certbot (no email registered), auto-renews via `certbot.timer`. Firewall rules `default-allow-http` / `default-allow-https` (tags `http-server`, `https-server`). Redeploy:
+2. Deploy: ✅ **Live on AWS since 2026-10-18** at https://aurasphere.co.in. The old GCP VM is retired.
+   - **Server:** AWS EC2 (Ubuntu 26.04, user `ubuntu`). The server address and SSH key are kept locally and never committed (`*.pem` is gitignored).
+   - **Apache 2.4:** site in `/var/www/aurasphere`, vhost in `/etc/apache2/sites-available/` (reference copy in `deploy/apache-aurasphere.conf`). It serves `/route` → `route.html` for the prerendered pages, a real 404, immutable cache on `/assets`, and `no-cache` on HTML. Modules: rewrite, headers.
+   - **Redirects:** `http://` and `www.` → 301 to `https://aurasphere.co.in`, path and query kept.
+   - **DNS** is at GoDaddy: A records for the apex and `www` → the server.
+   - **HTTPS:** Let's Encrypt via `certbot --apache`, auto-renews via `certbot.timer`.
+   - **Redeploy** (set `AURA_HOST` and `AURA_KEY` locally first):
    ```bash
    npm run build   # prerenders all routes + writes sitemap.xml (domain defaults to aurasphere.co.in)
    tar --force-local -czf dist.tgz -C dist .
-   gcloud compute scp dist.tgz aurasphere:/tmp/ --zone asia-south1-c
-   gcloud compute ssh aurasphere --zone asia-south1-c --command "sudo rm -rf /var/www/aurasphere/* && sudo tar -xzf /tmp/dist.tgz -C /var/www/aurasphere && sudo chown -R www-data:www-data /var/www/aurasphere && rm /tmp/dist.tgz"
+   scp -i "$AURA_KEY" dist.tgz ubuntu@$AURA_HOST:/tmp/
+   ssh -i "$AURA_KEY" ubuntu@$AURA_HOST "sudo rm -rf /var/www/aurasphere/* && sudo tar -xzf /tmp/dist.tgz -C /var/www/aurasphere && sudo chown -R www-data:www-data /var/www/aurasphere && rm /tmp/dist.tgz"
    ```
    **Floating WhatsApp button** on every page (bottom-right, label slides out on hover) opens `wa.me/917387996455` with a pre-filled greeting (`WHATSAPP_GREETING` in `src/config/site.ts`); back-to-top sits above it.
    **Enquiry form hidden** (client request 2026-09-22): Contact shows phone + email only. Restore with `ENQUIRY_FORM_ENABLED = true` in `src/config/site.ts`; `qa:interactions` follows the flag.
@@ -142,5 +148,8 @@ npm run qa:seo                                        # SEO + hydration checks (
     - Titles and descriptions now include keywords (doctor consultation, lab tests, yoga, corporate wellness, Mumbai).
     - Added a real `404.html` (noindex) and absolute OG image URLs. The sitemap is generated in `build`.
     - New `npm run qa:seo`. All QA suites are clean (qa, 26 interaction checks, qa:seo).
-  - **Pending:** the Apache vhost change (`docs/ARCHITECTURE.md` → SEO), then deploy. Then submit `https://aurasphere.co.in/sitemap.xml` in Google Search Console.
+  - The GCP-hosted site went offline (billing issue on the GCP account).
+  - Moved hosting to AWS EC2: new Apache config and a Let's Encrypt certificate, with the SEO build deployed. GoDaddy DNS points to the new server.
+  - Verified live: all 8 routes return 200 with their own canonical URL, unknown URLs return 404, http/www redirect to https, gzip is on.
+  - **Next:** submit `https://aurasphere.co.in/sitemap.xml` in Google Search Console. Decommission the old GCP VM.
 
