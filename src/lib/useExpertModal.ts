@@ -1,11 +1,14 @@
-import { useCallback, useMemo } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { EXPERTS, type Expert } from '@/data/experts'
 
 /** Profile modal state stored in the URL (?expert=id) so profiles are shareable. */
 export function useExpertModal() {
   const [params, setParams] = useSearchParams()
-  const id = params.get('expert')
+  // Prerendered pages never include the modal, so it opens only after hydration.
+  const [hydrated, setHydrated] = useState(false)
+  useEffect(() => setHydrated(true), [])
+  const id = hydrated ? params.get('expert') : null
   const expert = useMemo(() => EXPERTS.find((e) => e.id === id) ?? null, [id])
 
   const open = useCallback(

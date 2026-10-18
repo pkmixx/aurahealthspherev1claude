@@ -13,42 +13,42 @@ export const ROUTES = {
   home: {
     path: '/',
     label: 'Home',
-    title: 'AURASPHERE Wellness 360 | Healthcare & Corporate Wellness',
+    title: 'AURASPHERE Wellness 360 | Healthcare & Corporate Wellness, Mumbai',
     description:
-      'AURASPHERE Wellness 360 brings healthcare, preventive care, wellness activities and corporate wellness solutions together in one integrated ecosystem.',
+      'Mumbai-based AURASPHERE Wellness 360 brings doctor consultations, lab tests, health camps, yoga, meditation and corporate wellness programs together in one place.',
   },
   healthcare: {
     path: '/healthcare',
     label: 'Healthcare',
-    title: 'Healthcare Services | AURASPHERE Wellness 360',
+    title: 'Healthcare Services: Doctor Consultation, Lab Tests & Health Camps | AURASPHERE',
     description:
-      'Doctor consultation, pharmacy support, lab tests, health camps and diet & nutrition — healthcare connected around you.',
+      'Doctor consultation, pharmacy support, lab tests, preventive health camps and diet & nutrition guidance from AURASPHERE Wellness 360, Mumbai.',
   },
   wellness: {
     path: '/wellness',
     label: 'Wellness',
-    title: 'Wellness Activities | AURASPHERE Wellness 360',
+    title: 'Wellness Activities: Yoga, Meditation & Sound Therapy | AURASPHERE',
     description:
-      'Meditation, yoga, sound therapy, fitness, lifestyle, health camps and awareness sessions for individuals and teams.',
+      'Yoga, meditation, sound therapy, Zumba, fitness, mental well-being and lifestyle sessions for individuals and teams, from AURASPHERE Wellness 360.',
   },
   corporate: {
     path: '/corporate-wellness',
     label: 'Corporate Wellness',
-    title: 'Corporate Wellness Programs | AURASPHERE Wellness 360',
+    title: 'Corporate Wellness Programs in Mumbai | AURASPHERE Wellness 360',
     description:
-      'Wellness sessions, health awareness, preventive camps, training and team engagement designed for modern workplaces.',
+      'Employee wellness programs for workplaces: health talks, preventive health camps, stress management, POSH training, fitness and team engagement activities.',
   },
   experts: {
     path: '/experts',
     label: 'Our Experts',
-    title: 'Our Experts | AURASPHERE Wellness 360',
+    title: 'Our Doctors & Wellness Experts | AURASPHERE Wellness 360',
     description:
-      'Meet the doctors and wellness professionals associated with AURASPHERE Wellness 360.',
+      'Meet the doctors, nutritionist, mental health and sound healing professionals associated with AURASPHERE Wellness 360.',
   },
   about: {
     path: '/about',
     label: 'About',
-    title: 'About | AURASPHERE Wellness 360',
+    title: 'About Us | AURASPHERE Wellness 360',
     description:
       'AURASPHERE Wellness 360 is envisioned as an integrated platform bringing healthcare, wellness, preventive care and workplace well-being together.',
   },
@@ -57,7 +57,7 @@ export const ROUTES = {
     label: 'Contact',
     title: 'Contact Us | AURASPHERE Wellness 360',
     description:
-      'Tell us what you need and we will help you find the right healthcare or wellness solution.',
+      'Contact AURASPHERE Wellness 360 in Mumbai by phone, email or WhatsApp to find the right healthcare, wellness or corporate wellness solution.',
   },
   disclaimer: {
     path: '/disclaimer',

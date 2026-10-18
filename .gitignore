@@ -8,3 +8,4 @@ scripts/.generated-originals
 # Client source material (large; kept locally, not versioned)
 *.pdf
 Aurasphere Image
+dist-ssr

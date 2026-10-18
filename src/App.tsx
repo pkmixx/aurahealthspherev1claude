@@ -8,14 +8,35 @@ import { WhatsAppButton } from '@/components/WhatsAppButton'
 import Home from '@/pages/Home'
 
 // Home is eagerly loaded for the fastest first paint; other pages are split.
-const Healthcare = lazy(() => import('@/pages/Healthcare'))
-const Wellness = lazy(() => import('@/pages/Wellness'))
-const CorporateWellness = lazy(() => import('@/pages/CorporateWellness'))
-const Experts = lazy(() => import('@/pages/Experts'))
-const About = lazy(() => import('@/pages/About'))
-const Contact = lazy(() => import('@/pages/Contact'))
-const Disclaimer = lazy(() => import('@/pages/Disclaimer'))
-const NotFound = lazy(() => import('@/pages/NotFound'))
+const pageLoaders = {
+  [ROUTES.healthcare.path]: () => import('@/pages/Healthcare'),
+  [ROUTES.wellness.path]: () => import('@/pages/Wellness'),
+  [ROUTES.corporate.path]: () => import('@/pages/CorporateWellness'),
+  [ROUTES.experts.path]: () => import('@/pages/Experts'),
+  [ROUTES.about.path]: () => import('@/pages/About'),
+  [ROUTES.contact.path]: () => import('@/pages/Contact'),
+  [ROUTES.disclaimer.path]: () => import('@/pages/Disclaimer'),
+}
+const loadNotFound = () => import('@/pages/NotFound')
+
+const Healthcare = lazy(pageLoaders[ROUTES.healthcare.path])
+const Wellness = lazy(pageLoaders[ROUTES.wellness.path])
+const CorporateWellness = lazy(pageLoaders[ROUTES.corporate.path])
+const Experts = lazy(pageLoaders[ROUTES.experts.path])
+const About = lazy(pageLoaders[ROUTES.about.path])
+const Contact = lazy(pageLoaders[ROUTES.contact.path])
+const Disclaimer = lazy(pageLoaders[ROUTES.disclaimer.path])
+const NotFound = lazy(loadNotFound)
+
+/**
+ * Loads the code for `pathname` ahead of hydration, so prerendered HTML is
+ * hydrated in place instead of flashing the Suspense fallback.
+ */
+export function preloadRoute(pathname: string): Promise<unknown> {
+  const path = pathname.length > 1 ? pathname.replace(/\/$/, '') : pathname
+  if (path === ROUTES.home.path) return Promise.resolve()
+  return (pageLoaders[path] ?? loadNotFound)()
+}
 
 export function App() {
   return (

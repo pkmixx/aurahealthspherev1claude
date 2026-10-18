@@ -20,14 +20,14 @@ Premium, mobile-first static website for **AURASPHERE Wellness 360**, an integra
 ```bash
 npm install
 npm run dev        # http://localhost:5173
-npm run build      # type-check + production build to dist/
+npm run build      # type-check, build, prerender every route + sitemap.xml into dist/
 npm run preview    # serve the production build
 ```
 
 Optional:
 
 ```bash
-SITE_URL=https://your-domain.com npm run sitemap   # writes dist/sitemap.xml after a build
+npm run qa:seo                                     # SEO checks on the prerendered build (needs `vite preview` on :4173)
 python scripts/generate-images.py                  # generate site photography via Gemini (needs GEMINI_API_KEY)
 ```
 
@@ -67,7 +67,7 @@ src/
                  Accordion, ScrollToTop, Visual, Logo, Button, Reveal, OrbitRings, WellnessTabs
   pages/         Home, Healthcare, Wellness, CorporateWellness, Experts, About, Contact, NotFound
 public/          brand/ (logo variants), images/experts/, og-image.jpg, favicon, robots.txt
-scripts/         generate-sitemap.mjs, generate-images.py, import-photo.py, make-thumb.py, qa.mjs, qa-interactions.mjs
+scripts/         prerender.mjs, generate-sitemap.mjs, qa-seo.mjs, generate-images.py, import-photo.py, make-thumb.py, qa.mjs, qa-interactions.mjs
 docs/            ARCHITECTURE.md, CONTENT.md, STAGE-2.md
 ```
 
@@ -86,4 +86,4 @@ The content rules (no invented credentials, stats, testimonials and so on) are i
 
 ## Deployment
 
-It's a static SPA, so any static host works. SPA fallbacks are included for Netlify (`public/_redirects`) and Vercel (`vercel.json`). Set `VITE_SITE_URL` at build time for absolute canonical/OG URLs.
+It's a static site: every route is prerendered to `dist/<route>.html` (home is `dist/index.html`, plus `dist/404.html`), and the React app hydrates it in place. The host must serve `/healthcare` from `healthcare.html` (Vercel: `cleanUrls` in `vercel.json`; Netlify does this by default; Apache: see `docs/ARCHITECTURE.md`). Canonical/OG URLs default to `https://aurasphere.co.in`; override with `VITE_SITE_URL` at build time.

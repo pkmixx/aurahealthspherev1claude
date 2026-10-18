@@ -3,7 +3,7 @@
 > Living log so work can be resumed at any time. Update at every milestone.
 > Spec: `prompt.txt` · Docs: `README.md`, `docs/`
 
-_Last updated: 2026-09-22_
+_Last updated: 2026-10-18_
 
 ## Status at a glance
 
@@ -22,6 +22,7 @@ _Last updated: 2026-09-22_
 | Health disclaimers (`/disclaimer` + contextual notes) | ✅ Done |
 | 404 page                               | ✅ Done |
 | SEO basics (meta, OG, canonical, robots, sitemap script) | ✅ Done |
+| SEO: prerendered routes, JSON-LD, keyword titles, real 404 (`npm run qa:seo`) | ✅ Built 2026-10-18. ⏳ Needs Apache rewrite + deploy (see below) |
 | Automated QA script (`scripts/qa.mjs`) | ✅ Done — last run: no problems |
 | Visual QA pass (390 / 1024 / 1440 reviewed) | ✅ Done |
 | Interaction QA (`scripts/qa-interactions.mjs`, 26 checks) | ✅ All pass |
@@ -50,7 +51,7 @@ _Last updated: 2026-09-22_
    - Legal review of `src/data/disclaimers.ts`.
 2. Deploy: ✅ **Live 2026-09-22 at https://aurasphere.co.in** (`www.` and all `http://` requests 301 → `https://aurasphere.co.in`, path and query kept). GCP VM `aurasphere`, project `visionproject-501207`, zone `asia-south1-c`, static IP `34.47.208.183` (`aurasip`). DNS is at GoDaddy (A records → the IP). Ubuntu 24.04 + Apache 2; site at `/var/www/aurasphere`, vhosts `/etc/apache2/sites-available/aurasphere.conf` + `aurasphere-le-ssl.conf` (`FallbackResource /index.html` for SPA routes, long cache on `/assets`). Let's Encrypt cert via certbot (no email registered), auto-renews via `certbot.timer`. Firewall rules `default-allow-http` / `default-allow-https` (tags `http-server`, `https-server`). Redeploy:
    ```bash
-   VITE_SITE_URL=https://aurasphere.co.in npm run build && SITE_URL=https://aurasphere.co.in npm run sitemap
+   npm run build   # prerenders all routes + writes sitemap.xml (domain defaults to aurasphere.co.in)
    tar --force-local -czf dist.tgz -C dist .
    gcloud compute scp dist.tgz aurasphere:/tmp/ --zone asia-south1-c
    gcloud compute ssh aurasphere --zone asia-south1-c --command "sudo rm -rf /var/www/aurasphere/* && sudo tar -xzf /tmp/dist.tgz -C /var/www/aurasphere && sudo chown -R www-data:www-data /var/www/aurasphere && rm /tmp/dist.tgz"
@@ -84,7 +85,7 @@ npm run dev                 # dev server
 npm run build               # typecheck + build
 npx vite preview --port 4173 &  node scripts/qa.mjs   # automated QA + screenshots
 python scripts/generate-images.py                     # photos (needs Gemini credits)
-SITE_URL=https://domain npm run sitemap               # sitemap after build
+npm run qa:seo                                        # SEO + hydration checks (preview on :4173)
 ```
 
 ## Log
@@ -134,3 +135,12 @@ SITE_URL=https://domain npm run sitemap               # sitemap after build
   - `CONTACT.address` set to "Mumbai, Maharashtra" (city/state only; no street address). Shown on the Contact page and in the footer.
   - Deployed to https://aurasphere.co.in; verified the live bundle contains all four social URLs and the new address.
   - YouTube linked: https://www.youtube.com/@aura-sphere360. Deployed and verified live.
+- **2026-10-18**
+  - SEO pass:
+    - Every route is now prerendered to static HTML at build time (`scripts/prerender.mjs`, `src/entry-server.tsx`) and hydrated in place.
+    - Each page has its own title, description, canonical, OG/Twitter tags and JSON-LD (Organization, WebSite, WebPage, BreadcrumbList).
+    - Titles and descriptions now include keywords (doctor consultation, lab tests, yoga, corporate wellness, Mumbai).
+    - Added a real `404.html` (noindex) and absolute OG image URLs. The sitemap is generated in `build`.
+    - New `npm run qa:seo`. All QA suites are clean (qa, 26 interaction checks, qa:seo).
+  - **Pending:** the Apache vhost change (`docs/ARCHITECTURE.md` → SEO), then deploy. Then submit `https://aurasphere.co.in/sitemap.xml` in Google Search Console.
+

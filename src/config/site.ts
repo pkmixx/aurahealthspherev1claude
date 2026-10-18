@@ -14,7 +14,7 @@ export const SITE = {
   defaultDescription:
     'AURASPHERE Wellness 360 brings healthcare, preventive care, wellness activities and corporate wellness solutions together in one integrated ecosystem.',
   /** Production origin, e.g. "https://www.example.com". Used for canonical URLs. */
-  url: (import.meta.env.VITE_SITE_URL as string | undefined) ?? '',
+  url: ((import.meta.env.VITE_SITE_URL as string | undefined) || 'https://aurasphere.co.in').replace(/\/$/, ''),
   ogImage: '/og-image.jpg',
 } as const
 

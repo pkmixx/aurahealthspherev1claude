@@ -63,6 +63,16 @@ Tokens live in `src/index.css` (`@theme`):
 
 ## SEO
 
-- Static defaults in `index.html` (title, description, OG, Twitter).
-- `useDocumentMeta()` sets per-route title, description, canonical and OG tags.
-- `public/robots.txt`. `scripts/generate-sitemap.mjs` builds `sitemap.xml` from `src/config/routes.ts`.
+- **Prerendering.** `npm run build` also builds `src/entry-server.tsx` for SSR and runs `scripts/prerender.mjs`. Each route in `src/config/routes.ts` is rendered with `react-dom/static` into `dist/<route>.html` (home → `dist/index.html`, plus a `noindex` `dist/404.html`). Crawlers and link previews (WhatsApp, LinkedIn, X) see real content and per-page tags without running JavaScript.
+- **Hydration.** `src/main.tsx` hydrates only when `#root[data-prerendered]` matches the current path. It loads that route's lazy chunk first (`preloadRoute`), so there is no flash. Otherwise (dev server, fallback HTML) it renders on the client. Render output must not depend on browser-only state: `useExpertModal` opens `?expert=` profiles only after hydration for this reason. `npm run qa:seo` fails if hydration ever discards the prerendered DOM.
+- **Head tags.** `scripts/prerender.mjs` writes title, description, robots, canonical, OG/Twitter and JSON-LD (`src/config/seo.ts`: Organization, WebSite, WebPage, BreadcrumbList, from the client-supplied facts in `site.ts` only) between the `<!--seo:start/end-->` markers in `index.html`. `useDocumentMeta()` keeps them in sync during client-side navigation.
+- `public/robots.txt`. `scripts/generate-sitemap.mjs` (run by `build`) writes `sitemap.xml` from `src/config/routes.ts`.
+- **Apache (production) needs**, in the `:443` vhost, instead of `FallbackResource /index.html`:
+  ```apache
+  RewriteEngine On
+  # /healthcare (or /healthcare/) → /healthcare.html
+  RewriteCond %{DOCUMENT_ROOT}$1.html -f
+  RewriteRule ^(/.+?)/?$ $1.html [L]
+  ErrorDocument 404 /404.html
+  ```
+  (`a2enmod rewrite` if needed.) Without it, every route falls back to the prerendered home page. The app still works, but the SEO gain is lost.

@@ -3,7 +3,9 @@ import { ButtonLink } from '@/components/Button'
 import { OrbitRings } from '@/components/OrbitRings'
 
 export default function NotFound() {
-  useDocumentMeta('Page not found | AURASPHERE Wellness 360', 'The page you are looking for could not be found.')
+  useDocumentMeta('Page not found | AURASPHERE Wellness 360', 'The page you are looking for could not be found.', {
+    noindex: true,
+  })
   return (
     <section className="relative isolate grid min-h-[80vh] place-items-center overflow-hidden px-4 pt-28 pb-16 text-center">
       <OrbitRings className="absolute top-1/2 left-1/2 -z-10 w-[720px] -translate-x-1/2 -translate-y-1/2 opacity-60" />

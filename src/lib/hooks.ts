@@ -13,20 +13,29 @@ function setMeta(selector: string, attr: string, value: string) {
   el.setAttribute(attr, value)
 }
 
-/** Per-route title, description, canonical and Open Graph tags. */
-export function useDocumentMeta(title: string, description: string) {
+/**
+ * Per-route title, description, canonical, Open Graph and Twitter tags.
+ * scripts/prerender.mjs writes the same tags into each page's static HTML;
+ * this keeps them right during client-side navigation.
+ */
+export function useDocumentMeta(title: string, description: string, { noindex = false } = {}) {
   const { pathname } = useLocation()
   useEffect(() => {
     document.title = title
     const origin = SITE.url || window.location.origin
     const canonical = `${origin}${pathname === '/' ? '/' : pathname.replace(/\/$/, '')}`
+    const image = `${origin}${SITE.ogImage}`
     setMeta('meta[name="description"]', 'content', description)
+    setMeta('meta[name="robots"]', 'content', noindex ? 'noindex, follow' : 'index, follow')
     setMeta('link[rel="canonical"]', 'href', canonical)
     setMeta('meta[property="og:title"]', 'content', title)
     setMeta('meta[property="og:description"]', 'content', description)
     setMeta('meta[property="og:url"]', 'content', canonical)
-    setMeta('meta[property="og:image"]', 'content', `${origin}${SITE.ogImage}`)
-  }, [title, description, pathname])
+    setMeta('meta[property="og:image"]', 'content', image)
+    setMeta('meta[name="twitter:title"]', 'content', title)
+    setMeta('meta[name="twitter:description"]', 'content', description)
+    setMeta('meta[name="twitter:image"]', 'content', image)
+  }, [title, description, noindex, pathname])
 }
 
 export function usePrefersReducedMotion() {
