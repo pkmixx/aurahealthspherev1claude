@@ -24,7 +24,7 @@ _Last updated: 2026-10-20_
 | SEO basics (meta, OG, canonical, robots, sitemap script) | ✅ Done |
 | SEO: prerendered routes, JSON-LD, keyword titles, real 404 (`npm run qa:seo`) | ✅ Live on AWS 2026-10-18 |
 | AEO: FAQs + FAQPage schema, Service/Person schema, `llms.txt`, AI-crawler robots rules | ✅ Live on AWS 2026-10-20 |
-| Search focus on wellness activities + health camps (titles, schema, FAQs, llms.txt) | ✅ Built 2026-10-20 — deploy pending |
+| Search focus on wellness activities + health camps (titles, schema, FAQs, llms.txt) | ✅ Live on AWS 2026-10-20 |
 | Automated QA script (`scripts/qa.mjs`) | ✅ Done — last run: no problems |
 | Visual QA pass (390 / 1024 / 1440 reviewed) | ✅ Done |
 | Interaction QA (`scripts/qa-interactions.mjs`, 26 checks) | ✅ All pass |
@@ -166,5 +166,6 @@ npm run qa:seo                                        # SEO + hydration checks (
   - Rich Results Test (home): 2 valid items (Organisation, Local business), only warnings are the optional `streetAddress`/`postalCode` (client wants city only). FAQ rich results are not shown for most sites since 2023, so FAQ isn't listed; Schema.org validator confirms FAQPage, Service and Person markup with 0 errors/warnings on Home, Healthcare and Experts.
   - Client: wellness activities and health camps are the main search target, **search and AI only** (no visible layout change). Retargeted titles/descriptions, Organization description and `knowsAbout`, added per-camp and per-activity `Service` entries, FAQs now lead with wellness activities and health camps (new Home and Corporate questions), `llms.txt` opens with an activity-by-activity and camp-by-camp list.
   - Bug fix (live since the prerender commit `4491d1c`): `/wellness#<activity>` deep links didn't open the right accordion, because the initial state read the hash during hydration, so it didn't match the prerendered HTML. The page now opens it after hydration, and `ScrollToTop` waits until the target is visible before scrolling. Two timing-based interaction checks were also hardened. QA is clean: 26/26 on 6 consecutive runs, qa and qa:seo.
+  - Deployed (`30f356a`) and verified live: new titles on all four focus pages, 53 Service entities on Home, `llms.txt` leads with wellness and camps, `qa:seo` passes against production, and `/wellness#yoga`, `#self-defence` and `#ecg-camp` open on mobile.
   - **Next:** client to decide whether AI *training* crawlers (GPTBot, ClaudeBot, Google-Extended) should stay allowed.
 
