@@ -4,8 +4,8 @@ Stage 1 intentionally implements none of these features. This is where each one 
 
 | Future capability                 | Integration point                                                                                         |
 | --------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| Enquiry backend / CRM / email     | Replace the body of `submitEnquiry()` in `src/services/enquiry.ts`, return `{ delivered: true }`. No UI change. |
-| WhatsApp                          | Set `CONTACT.whatsapp` in `src/config/site.ts`. The Contact page renders the channel automatically.        |
+| Enquiry backend / CRM / email     | Replace the body of `submitEnquiry()` in `src/services/enquiry.ts`, return `{ delivered: true }`, then set `ENQUIRY_FORM_ENABLED = true` (`src/config/site.ts`). |
+| WhatsApp                          | ✅ Done in Stage 1: `CONTACT.whatsapp` in `src/config/site.ts` (Contact card + floating button).           |
 | Doctor / service booking          | `contactHref()` in `src/lib/contact.ts` is the single CTA router. Branch on `bookingEnabled` to return a booking route. |
 | Pricing / availability            | Reserved optional fields in `FutureCommerceFields` (`src/data/types.ts`) and `Expert.bookingEnabled`.       |
 | Trainer assignment                | Wellness activities already have stable `id`s. Link experts to activity ids.                               |

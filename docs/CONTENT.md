@@ -10,7 +10,8 @@ The site must look premium **without fabricating credibility**.
 - Certifications, awards or accreditations for AURASPHERE
 - Years of experience, procedure counts, success rates or medical outcomes
 - Company history
-- Contact details or social URLs beyond what the client supplied (phone +91 73879 96455 for contact & enquiries, email info@aurasphere.co.in as primary (2026-09-28, replacing aurasphere455@gmail.com))
+- Contact details or social URLs beyond what the client supplied. Supplied so far: phone and WhatsApp +91 73879 96455; email info@aurasphere.co.in (primary since 2026-09-28, replacing aurasphere455@gmail.com); address "Mumbai, Maharashtra" only (no street or postcode, client 2026-10-01); and the five social profiles in `src/config/site.ts`. No opening hours yet.
+- Service areas, languages or locations the client hasn't confirmed. Search-only text such as titles and JSON-LD follows the same rule.
 - Prices, availability, inventory or "Book Now / Buy Now / Pay Now" CTAs
 
 If information is missing, **omit it**.

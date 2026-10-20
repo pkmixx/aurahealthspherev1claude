@@ -1,6 +1,8 @@
 # AURASPHERE Wellness 360 — Website (Stage 1)
 
-Premium, mobile-first static website for **AURASPHERE Wellness 360**, an integrated healthcare, wellness and corporate wellness company.
+Premium, mobile-first static website for **AURASPHERE Wellness 360**, an integrated healthcare, wellness and corporate wellness company. Live at **https://aurasphere.co.in**.
+
+Current status, next steps and the redeploy commands are in [`PROGRESS.md`](PROGRESS.md).
 
 > **Stage 1 = static frontend only.** No backend, database, auth, payments, booking, pharmacy ordering or lab booking. Every service CTA leads to **Contact Us**. The architecture is prepared for Stage 2. See [`docs/STAGE-2.md`](docs/STAGE-2.md).
 
@@ -37,7 +39,14 @@ python scripts/generate-images.py                  # generate site photography v
 npm run build && npx vite preview --port 4173 &
 npm run qa                 # 9 pages × 6 breakpoints: console errors, overflow, broken images/links, h1, screenshots → screenshots/
 npm run qa:interactions    # mobile menu, dropdowns, tabs, deep links, expert modal, contact form validation/success
+npm run qa:seo             # per-page meta, JSON-LD, FAQ/schema match, hydration, llms.txt, robots.txt
 ```
+
+All three also run against production: `QA_BASE=https://aurasphere.co.in npm run qa:seo`.
+
+## SEO and AEO
+
+Every route is prerendered with its own title, description, canonical URL and JSON-LD, and the build writes `sitemap.xml` and `llms.txt`. Pages carry visible FAQs that match their FAQPage markup. The **main search target is wellness activities and health camps** (client, 2026-10-20). That applies to titles, structured data, FAQs and `llms.txt` only; the visible layout is not changed for it. Details are in [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md#seo).
 
 ## Pages
 
@@ -58,16 +67,21 @@ Expert profiles are deep-linkable: `/experts?expert=kunjan-paul`.
 
 ```
 src/
-  config/        site.ts (contact details, social), routes.ts (routes + SEO), images.ts (image registry)
-  data/          services.ts, experts.ts, navigation.ts, enquiry.ts, types.ts — all content lives here
+  config/        site.ts (contact details, social), routes.ts (routes + titles/descriptions), images.ts (image registry),
+                 seo.ts (JSON-LD), llms.ts (llms.txt)
+  data/          services.ts, experts.ts, faqs.ts, disclaimers.ts, navigation.ts, enquiry.ts, upcoming.ts, types.ts
+                 — all content lives here
   lib/           contact.ts (CTA routing), hooks.ts (meta, reveal, scroll lock), icons.ts, useExpertModal.ts
   services/      enquiry.ts — form submission stub (Stage 2 swap-in point)
   components/    Navbar, MobileMenu, Hero, PageHero, SectionHeading, ServiceCard, ServiceCategory,
-                 ActivityCard, ExpertCard, ExpertModal, CTASection, Footer, ContactCard, IconCard,
-                 Accordion, ScrollToTop, Visual, Logo, Button, Reveal, OrbitRings, WellnessTabs
-  pages/         Home, Healthcare, Wellness, CorporateWellness, Experts, About, Contact, NotFound
+                 ActivityCard, ExpertCard, ExpertModal, ExpertPhoto, CTASection, FAQSection, Footer,
+                 ContactCard, IconCard, Accordion, HealthDisclaimer, AIFeatures, ScrollToTop, WhatsAppButton,
+                 SocialIcon, MenuThumb, Visual, Logo, Button, Reveal, OrbitRings, WellnessTabs
+  pages/         Home, Healthcare, Wellness, CorporateWellness, Experts, About, Contact, Disclaimer, NotFound
+  entry-server.tsx  build-time renderer used by scripts/prerender.mjs
 public/          brand/ (logo variants), images/experts/, og-image.jpg, favicon, robots.txt
 scripts/         prerender.mjs (also writes llms.txt), generate-sitemap.mjs, qa-seo.mjs, generate-images.py, import-photo.py, make-thumb.py, qa.mjs, qa-interactions.mjs
+deploy/          apache-aurasphere.conf (reference copy of the production Apache vhost)
 docs/            ARCHITECTURE.md, CONTENT.md, STAGE-2.md
 ```
 
@@ -76,9 +90,14 @@ docs/            ARCHITECTURE.md, CONTENT.md, STAGE-2.md
 - **Contact details / social links** → `src/config/site.ts`.
   - Phone (contact & enquiries): **+91 73879 96455**
   - Email (primary): **info@aurasphere.co.in**
-  - WhatsApp, address, hours and social URLs are still `null`. The UI hides or placeholders anything that's `null`.
+  - WhatsApp: same number. Address: Mumbai, Maharashtra (city and state only, at the client's request).
+  - Instagram, Facebook, LinkedIn, YouTube and X are linked.
+  - Hours are still `null`. The UI hides anything that's `null`.
+  - The enquiry form is hidden at the client's request: `ENQUIRY_FORM_ENABLED`.
 - **Services and activities** → `src/data/services.ts`
 - **Experts** → `src/data/experts.ts`
+- **FAQs** → `src/data/faqs.ts`. Answers are built from the data above, so most changes there flow through automatically. The visible FAQ, its JSON-LD and `llms.txt` all read from this one file.
+- **Page titles and descriptions** → `src/config/routes.ts` (`npm run qa:seo` checks description length and uniqueness).
 - **Images** → `python scripts/import-photo.py <slot> <file-or-url> [focusX] [focusY]` crops to 3:2 and writes `src/assets/photos/<slot>-640.webp` + `-1200.webp`. Photos are picked up automatically (see `src/config/images.ts` for slot names), and a missing photo falls back to an abstract branded visual. The current photos are AI-generated via Canva; see `docs/CONTENT.md`.
 - **Small images** (wellness activities, corporate areas, category headers, menu items) → `python scripts/make-thumb.py <content-id> <file-or-url>` writes `src/assets/thumbs/<id>.webp` (480×320, ~6–18 KB) and `src/assets/mini/<id>.webp` (96×96, ~1–2 KB). The id is the activity / area / service / category id from `src/data`. Images are matched by id automatically; items without one keep their icon.
 
@@ -87,3 +106,5 @@ The content rules (no invented credentials, stats, testimonials and so on) are i
 ## Deployment
 
 It's a static site: every route is prerendered to `dist/<route>.html` (home is `dist/index.html`, plus `dist/404.html`), and the React app hydrates it in place. The host must serve `/healthcare` from `healthcare.html` (Vercel: `cleanUrls` in `vercel.json`; Netlify does this by default; Apache: see `docs/ARCHITECTURE.md`). Canonical/OG URLs default to `https://aurasphere.co.in`; override with `VITE_SITE_URL` at build time.
+
+Production runs on Apache 2.4 on an AWS EC2 server with a Let's Encrypt certificate. The vhost is mirrored in `deploy/apache-aurasphere.conf`, and the redeploy commands are in `PROGRESS.md`. The server address and SSH key are kept locally and never committed.

@@ -34,7 +34,7 @@ _Last updated: 2026-10-20_
 
 ## Resume here — next steps
 
-> **Session paused 2026-09-22.** All dev/preview servers are stopped and the working tree is committed and pushed to `origin/main`. To pick up again:
+> **Session paused 2026-10-20.** The site is live and up to date at https://aurasphere.co.in (last deploy: commit `30f356a`). Everything is committed and pushed to `origin/main`, and no dev or preview servers are running. To pick up again:
 >
 > ```bash
 > cd C:\AWork\Auraspherev1claude
@@ -43,37 +43,44 @@ _Last updated: 2026-10-20_
 > npm run dev -- --host     # http://localhost:5173 (and LAN URL for phone testing)
 > ```
 >
-> Before any commit: `npm run build`, then `npx vite preview --port 4173 &`, `npm run qa` and `npm run qa:interactions`.
+> Before any commit or deploy: `npm run build`, then `npx vite preview --port 4173 &`, then `npm run qa`, `npm run qa:interactions` and `npm run qa:seo`. Read the **full** output: the interaction suite prints each check, and a FAIL can hide above the last lines.
 
-1. Client review:
-   - AI imagery acceptable? Real photos can be swapped in with `scripts/import-photo.py`.
-   - Remaining contact details: address, hours (`src/config/site.ts`).
-   - Social URLs: all five footer icons are linked (2026-10-01) via `SOCIAL_LINKS` (`src/config/site.ts`).
-   - Production domain (`VITE_SITE_URL`).
+1. **Search follow-up** (can be done any time):
+   - Google Search Console: submit `https://aurasphere.co.in/sitemap.xml` and request indexing of the home page, so the new wellness/health-camp titles are picked up sooner.
+   - Bing Webmaster Tools: submit the same sitemap. Bing feeds Copilot and ChatGPT search.
+   - In 2–4 weeks: check Search Console for queries on wellness activities and health camps. Also try asking ChatGPT, Perplexity and Google AI Mode about "health camps in Mumbai" and see whether AURASPHERE is cited.
+2. **Client decisions / inputs:**
+   - AI *training* crawlers (GPTBot, ClaudeBot, Google-Extended) are currently allowed. Block them? (AI *search* would still work; how-to in `docs/ARCHITECTURE.md`.)
+   - Full street address and postcode? This is optional. It would clear the 2 Rich Results warnings and help local search. The current rule is city and state only.
+   - Opening hours (`CONTACT.hours`).
+   - Is AI imagery acceptable? Real photos can be swapped in with `scripts/import-photo.py`.
    - Legal review of `src/data/disclaimers.ts`.
-2. Deploy: ✅ **Live on AWS since 2026-10-18** at https://aurasphere.co.in. The old GCP VM is retired.
-   - **Server:** AWS EC2 (Ubuntu 26.04, user `ubuntu`). The server address and SSH key are kept locally and never committed (`*.pem` is gitignored).
-   - **Apache 2.4:** site in `/var/www/aurasphere`, vhost in `/etc/apache2/sites-available/` (reference copy in `deploy/apache-aurasphere.conf`). It serves `/route` → `route.html` for the prerendered pages, a real 404, immutable cache on `/assets`, and `no-cache` on HTML. Modules: rewrite, headers.
+   - Mailbox for info@aurasphere.co.in: confirm the MX records so it receives mail.
+3. **Hosting:** ✅ **Live on AWS since 2026-10-18.** The old GCP VM is offline (GCP billing account closed) and still needs to be decommissioned.
+   - **Server:** AWS EC2 (Ubuntu, user `ubuntu`). The server address and SSH key are kept locally and never committed (`*.pem` is gitignored).
+   - **Apache 2.4:** site in `/var/www/aurasphere`; live vhost `/etc/apache2/sites-available/aurasphere-le-ssl.conf`, mirrored in `deploy/apache-aurasphere.conf`. It serves `/route` → `route.html` for the prerendered pages, a real 404, immutable cache on `/assets`, `no-cache` on HTML, and UTF-8 for `.txt`/`.xml`. Modules: rewrite, headers. A pre-AddCharset backup is in `aurasphere-le-ssl.conf.bak-20261020`.
+   - **Server housekeeping:** on the 2026-10-20 reload, systemd said the `apache2.service` unit had changed on disk (probably a package update). Running `sudo systemctl daemon-reload` is harmless.
    - **Redirects:** `http://` and `www.` → 301 to `https://aurasphere.co.in`, path and query kept.
    - **DNS** is at GoDaddy: A records for the apex and `www` → the server.
    - **HTTPS:** Let's Encrypt via `certbot --apache`, auto-renews via `certbot.timer`.
    - **Redeploy** (set `AURA_HOST` and `AURA_KEY` locally first):
    ```bash
-   npm run build   # prerenders all routes + writes sitemap.xml (domain defaults to aurasphere.co.in)
+   npm run build   # prerenders all routes + writes sitemap.xml and llms.txt (domain defaults to aurasphere.co.in)
    tar --force-local -czf dist.tgz -C dist .
    scp -i "$AURA_KEY" dist.tgz ubuntu@$AURA_HOST:/tmp/
    ssh -i "$AURA_KEY" ubuntu@$AURA_HOST "sudo rm -rf /var/www/aurasphere/* && sudo tar -xzf /tmp/dist.tgz -C /var/www/aurasphere && sudo chown -R www-data:www-data /var/www/aurasphere && rm /tmp/dist.tgz"
+   QA_BASE=https://aurasphere.co.in npm run qa:seo   # verify production
    ```
    **Floating WhatsApp button** on every page (bottom-right, label slides out on hover) opens `wa.me/917387996455` with a pre-filled greeting (`WHATSAPP_GREETING` in `src/config/site.ts`); back-to-top sits above it.
-   **Enquiry form hidden** (client request 2026-09-22): Contact shows phone + email only. Restore with `ENQUIRY_FORM_ENABLED = true` in `src/config/site.ts`; `qa:interactions` follows the flag.
-3. Stage 2 planning: see `docs/STAGE-2.md`.
+   **Enquiry form hidden** (client request 2026-09-22): Contact shows phone, WhatsApp and email only. Restore with `ENQUIRY_FORM_ENABLED = true` in `src/config/site.ts`; `qa:interactions` follows the flag.
+4. **Stage 2 planning:** see `docs/STAGE-2.md`.
 
 ## Blockers / open items
 
 - **Gemini image generation:** credits used up (402). No longer needed, since the images came from Canva. `scripts/generate-images.py` is kept as an alternative.
 - **Canva:** ✅ authenticated 2026-09-21 and used to generate all 13 site images.
 - **Nebius (`NEBIUS_API_KEY`):** checked 2026-09-21. The key only gives access to text models (Qwen, DeepSeek, GLM, Kimi…), and the image-generation endpoints return 404. Not usable for images.
-- **Client inputs needed:** hours (`src/config/site.ts`), and legal review of the disclaimer copy (`src/data/disclaimers.ts`). Phone and support email were supplied 2026-09-21 (primary email changed to info@aurasphere.co.in 2026-09-28); WhatsApp (same number) and domain 2026-09-22.
+- **Client inputs needed:** see "Client decisions / inputs" above. Already supplied: phone and email (2026-09-21; primary email changed to info@aurasphere.co.in 2026-09-28), WhatsApp and domain (2026-09-22), address and socials (2026-10-01).
 
 ## Key decisions (and why)
 
@@ -85,15 +92,22 @@ _Last updated: 2026-10-20_
 - **AI section** is labelled "Planned" everywhere, is non-interactive and makes no diagnostic claims.
 - **Emergency number:** 112 (India national emergency number).
 - **Client PDFs are never committed** (`.gitignore`: `*.pdf`, `Aurasphere Image`).
+- **Main search target: wellness activities and health camps** (client, 2026-10-20). This is applied **only to what search engines and AI read**: titles, descriptions, JSON-LD, FAQ order and `llms.txt`. The client chose not to change the visible layout for it.
+- **FAQ answers are generated from the site's own data** (`src/data/faqs.ts`), so they can't drift or add claims. The visible FAQ, its FAQPage JSON-LD and `llms.txt` all read from that one file.
+- **Address stays city and state only** in JSON-LD, even though Google flags `streetAddress`/`postalCode` as optional warnings (client, 2026-10-01).
+- **AI crawlers:** all allowed, and the search/answer bots are named explicitly in `robots.txt`. Blocking the training bots is the client's decision.
 
 ## Commands
 
 ```bash
 npm run dev                 # dev server
-npm run build               # typecheck + build
-npx vite preview --port 4173 &  node scripts/qa.mjs   # automated QA + screenshots
-python scripts/generate-images.py                     # photos (needs Gemini credits)
-npm run qa:seo                                        # SEO + hydration checks (preview on :4173)
+npm run build               # typecheck + build + prerender + sitemap.xml + llms.txt
+npx vite preview --port 4173 &                        # serve dist/ for the QA scripts
+npm run qa                                            # 9 pages × 6 widths + screenshots (QA_SHOTS=0 to skip shots)
+npm run qa:interactions                               # 26 interaction checks
+npm run qa:seo                                        # SEO/AEO + hydration checks
+QA_BASE=https://aurasphere.co.in npm run qa:seo       # same checks against production
+python scripts/import-photo.py <slot> <file-or-url>   # swap in a real photo
 ```
 
 ## Log
@@ -167,5 +181,5 @@ npm run qa:seo                                        # SEO + hydration checks (
   - Client: wellness activities and health camps are the main search target, **search and AI only** (no visible layout change). Retargeted titles/descriptions, Organization description and `knowsAbout`, added per-camp and per-activity `Service` entries, FAQs now lead with wellness activities and health camps (new Home and Corporate questions), `llms.txt` opens with an activity-by-activity and camp-by-camp list.
   - Bug fix (live since the prerender commit `4491d1c`): `/wellness#<activity>` deep links didn't open the right accordion, because the initial state read the hash during hydration, so it didn't match the prerendered HTML. The page now opens it after hydration, and `ScrollToTop` waits until the target is visible before scrolling. Two timing-based interaction checks were also hardened. QA is clean: 26/26 on 6 consecutive runs, qa and qa:seo.
   - Deployed (`30f356a`) and verified live: new titles on all four focus pages, 53 Service entities on Home, `llms.txt` leads with wellness and camps, `qa:seo` passes against production, and `/wellness#yoga`, `#self-defence` and `#ecg-camp` open on mobile.
-  - **Next:** client to decide whether AI *training* crawlers (GPTBot, ClaudeBot, Google-Extended) should stay allowed.
-
+  - Docs pass: README (contact status, file map, SEO/AEO section, hosting), ARCHITECTURE (hydration rule for `#hash`, Hosting section incl. AddCharset), STAGE-2 (WhatsApp done), CONTENT (supplied contact facts, no unconfirmed areas or languages), and this file (resume block rewritten for the next session).
+  - **Next session:** see "Resume here" at the top (search follow-up, client decisions).
