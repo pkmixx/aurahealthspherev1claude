@@ -13,30 +13,30 @@ export const ROUTES = {
   home: {
     path: '/',
     label: 'Home',
-    title: 'AURASPHERE Wellness 360 | Healthcare & Corporate Wellness, Mumbai',
+    title: 'Wellness Activities & Health Camps in Mumbai | AURASPHERE Wellness 360',
     description:
-      'Mumbai-based AURASPHERE Wellness 360 brings doctor consultations, lab tests, health camps, yoga, meditation and corporate wellness programs together in one place.',
+      'Wellness activities like yoga, meditation, sound therapy and Zumba, and on-site health camps (eye, dental, ECG, PFT, audiometry) from Mumbai-based AURASPHERE.',
   },
   healthcare: {
     path: '/healthcare',
     label: 'Healthcare',
-    title: 'Healthcare Services: Doctor Consultation, Lab Tests & Health Camps | AURASPHERE',
+    title: 'Health Camps, Doctor Consultation & Lab Tests | AURASPHERE Wellness 360',
     description:
-      'Doctor consultation, pharmacy support, lab tests, preventive health camps and diet & nutrition guidance from AURASPHERE Wellness 360, Mumbai.',
+      'Preventive health camps for workplaces and communities (basic health, eye, dental, ECG, PFT, audiometry, blood donation), plus doctor consultation and lab tests.',
   },
   wellness: {
     path: '/wellness',
     label: 'Wellness',
-    title: 'Wellness Activities: Yoga, Meditation & Sound Therapy | AURASPHERE',
+    title: 'Wellness Activities in Mumbai: Yoga, Meditation & Sound Therapy | AURASPHERE',
     description:
-      'Yoga, meditation, sound therapy, Zumba, fitness, mental well-being and lifestyle sessions for individuals and teams, from AURASPHERE Wellness 360.',
+      '40 wellness activities for individuals, groups and workplaces: yoga, meditation, sound therapy, Zumba, stress management, health talks and health camps.',
   },
   corporate: {
     path: '/corporate-wellness',
     label: 'Corporate Wellness',
-    title: 'Corporate Wellness Programs in Mumbai | AURASPHERE Wellness 360',
+    title: 'Corporate Wellness Programs & Health Camps in Mumbai | AURASPHERE',
     description:
-      'Employee wellness programs for workplaces: health talks, preventive health camps, stress management, POSH training, fitness and team engagement activities.',
+      'Employee wellness activities and on-site health camps for workplaces: yoga, meditation, stress management, health talks, ECG and eye camps, CPR and POSH training.',
   },
   experts: {
     path: '/experts',

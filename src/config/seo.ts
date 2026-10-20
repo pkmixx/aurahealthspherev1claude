@@ -12,6 +12,62 @@ import { FAQS } from '@/data/faqs'
 const ORG_ID = `${SITE.url}/#organization`
 const pageUrl = (path: string) => (path === '/' ? `${SITE.url}/` : `${SITE.url}${path}`)
 
+/** On-site camps (Eye Check-up Camp, ECG Camp…) from the Health & Prevention activities. */
+const CAMPS = activitiesByCategory('health-prevention').filter((a) => a.format.includes('Camp'))
+
+/** Each camp as its own Service, so "ECG camp", "eye check-up camp"… are explicit entities. */
+function campCatalog() {
+  return {
+    '@type': 'OfferCatalog',
+    name: 'Health camps',
+    itemListElement: CAMPS.map((a) => ({
+      '@type': 'Service',
+      name: a.name,
+      description: a.description,
+      serviceType: 'Health camp',
+      provider: { '@id': ORG_ID },
+    })),
+  }
+}
+
+function healthCampsService() {
+  const s = HEALTHCARE_SERVICES.find((x) => x.id === 'health-camps')!
+  return {
+    '@type': 'Service',
+    '@id': `${SITE.url}${ROUTES.healthcare.path}#${s.id}`,
+    name: s.name,
+    description: `${s.summary} ${s.description}`,
+    serviceType: 'Preventive health camp',
+    category: 'Health camps',
+    provider: { '@id': ORG_ID },
+    hasOfferCatalog: campCatalog(),
+  }
+}
+
+function wellnessService(c: (typeof WELLNESS_CATEGORIES)[number]) {
+  const activities = activitiesByCategory(c.id)
+  return {
+    '@type': 'Service',
+    '@id': `${SITE.url}${ROUTES.wellness.path}#${c.id}`,
+    name: `${c.name} wellness activities`,
+    description: `${c.intro} Includes ${activities.map((a) => a.name).join(', ')}.`,
+    serviceType: 'Wellness activity',
+    category: 'Wellness',
+    provider: { '@id': ORG_ID },
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: c.name,
+      itemListElement: activities.map((a) => ({
+        '@type': 'Service',
+        name: a.name,
+        description: a.description,
+        serviceType: a.format.includes('Camp') ? 'Health camp' : 'Wellness activity',
+        provider: { '@id': ORG_ID },
+      })),
+    },
+  }
+}
+
 function organization() {
   const [locality, region] = (CONTACT.address ?? '').split(',').map((s) => s.trim())
   return {
@@ -24,15 +80,21 @@ function organization() {
     image: `${SITE.url}${SITE.ogImage}`,
     slogan: SITE.tagline,
     description: SITE.defaultDescription,
+    // Primary focus first: wellness activities and health camps.
     knowsAbout: [
-      ...HEALTHCARE_SERVICES.map((s) => s.name),
-      'Preventive healthcare',
-      'Corporate wellness',
-      'Employee wellness programs',
-      ...WELLNESS_CATEGORIES.map((c) => c.name),
+      'Wellness activities',
+      'Health camps',
+      'Preventive health camps',
+      ...CAMPS.map((a) => a.name),
       'Yoga',
       'Meditation',
       'Sound therapy',
+      'Zumba',
+      'Stress management',
+      ...WELLNESS_CATEGORIES.map((c) => c.name),
+      'Corporate wellness',
+      'Employee wellness programs',
+      ...HEALTHCARE_SERVICES.filter((s) => s.id !== 'health-camps').map((s) => s.name),
       'CPR and first aid training',
       'POSH training',
     ],
@@ -64,29 +126,29 @@ function services(path: string) {
   const provider = { '@id': ORG_ID }
   let label: string
   let items: object[]
-  if (path === ROUTES.healthcare.path) {
-    label = ROUTES.healthcare.label
-    items = HEALTHCARE_SERVICES.map((s) => ({
-      '@type': 'Service',
-      '@id': `${SITE.url}${path}#${s.id}`,
-      name: s.name,
-      description: `${s.summary} ${s.description}`,
-      serviceType: s.name,
-      category: 'Healthcare',
-      provider,
-    }))
+  if (path === ROUTES.home.path) {
+    label = 'Wellness activities and health camps'
+    items = [healthCampsService(), ...WELLNESS_CATEGORIES.map(wellnessService)]
+  } else if (path === ROUTES.healthcare.path) {
+    label = 'Healthcare services'
+    items = HEALTHCARE_SERVICES.map((s) =>
+      s.id === 'health-camps'
+        ? healthCampsService()
+        : {
+            '@type': 'Service',
+            '@id': `${SITE.url}${path}#${s.id}`,
+            name: s.name,
+            description: `${s.summary} ${s.description}`,
+            serviceType: s.name,
+            category: 'Healthcare',
+            provider,
+          },
+    )
   } else if (path === ROUTES.wellness.path) {
-    label = ROUTES.wellness.label
-    items = WELLNESS_CATEGORIES.map((c) => ({
-      '@type': 'Service',
-      '@id': `${SITE.url}${path}#${c.id}`,
-      name: c.name,
-      description: `${c.intro} Includes ${activitiesByCategory(c.id).map((a) => a.name).join(', ')}.`,
-      category: 'Wellness',
-      provider,
-    }))
+    label = 'Wellness activities'
+    items = WELLNESS_CATEGORIES.map(wellnessService)
   } else if (path === ROUTES.corporate.path) {
-    label = ROUTES.corporate.label
+    label = 'Corporate wellness services'
     items = CORPORATE_AREAS.map((a) => ({
       '@type': 'Service',
       name: `Corporate ${a.name}`,
@@ -94,12 +156,13 @@ function services(path: string) {
       serviceType: 'Corporate wellness',
       audience: { '@type': 'BusinessAudience', name: 'Employers and workplace teams' },
       provider,
+      ...(a.id === 'preventive-camps' && { hasOfferCatalog: campCatalog() }),
     }))
   } else return null
   return {
     '@type': 'ItemList',
     '@id': `${pageUrl(path)}#services`,
-    name: `${label} services`,
+    name: label,
     itemListElement: items.map((item, i) => ({ '@type': 'ListItem', position: i + 1, item })),
   }
 }

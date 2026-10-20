@@ -34,9 +34,9 @@ export default function Wellness() {
   const { hash } = useLocation()
   const [query, setQuery] = useState('')
   const [filter, setFilter] = useState<Filter>('all')
-  const [openIds, setOpenIds] = useState<Set<WellnessCategoryId>>(
-    () => new Set([categoryForHash(hash) ?? WELLNESS_CATEGORIES[0].id]),
-  )
+  // Start like the prerendered HTML (no hash on the server); the effect below
+  // opens the #hash category after hydration.
+  const [openIds, setOpenIds] = useState<Set<WellnessCategoryId>>(() => new Set([WELLNESS_CATEGORIES[0].id]))
 
   // Deep links (e.g. /wellness#yoga from the nav) open the right accordion.
   useEffect(() => {

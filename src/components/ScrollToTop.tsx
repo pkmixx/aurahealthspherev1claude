@@ -14,10 +14,11 @@ export function ScrollToTop() {
     if (hash) {
       const id = decodeURIComponent(hash.slice(1))
       let tries = 0
-      // Targets may render after lazy-loaded pages mount; retry briefly.
+      // Targets may render after lazy-loaded pages mount, or sit in a closed
+      // accordion that opens a moment later; retry briefly until visible.
       const attempt = () => {
         const el = document.getElementById(id)
-        if (el) {
+        if (el && el.getClientRects().length) {
           el.scrollIntoView({ block: 'start' })
           if (el.tabIndex < 0 && !/^(A|BUTTON|INPUT|SELECT|TEXTAREA)$/.test(el.tagName)) {
             el.setAttribute('tabindex', '-1')

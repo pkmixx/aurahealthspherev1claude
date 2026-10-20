@@ -10,9 +10,10 @@ export const SITE = {
   name: 'AURASPHERE Wellness 360',
   shortName: 'AURASPHERE',
   tagline: 'Your Health. Your Wellness. Your Complete 360° Care.',
-  defaultTitle: 'AURASPHERE Wellness 360 | Healthcare & Corporate Wellness',
+  defaultTitle: 'Wellness Activities & Health Camps in Mumbai | AURASPHERE Wellness 360',
+  /** Used in structured data and llms.txt (not shown on the page). */
   defaultDescription:
-    'AURASPHERE Wellness 360 brings healthcare, preventive care, wellness activities and corporate wellness solutions together in one integrated ecosystem.',
+    'AURASPHERE Wellness 360 runs wellness activities and preventive health camps for individuals, communities and workplaces, alongside healthcare support and corporate wellness programs.',
   /** Production origin, e.g. "https://www.example.com". Used for canonical URLs. */
   url: ((import.meta.env.VITE_SITE_URL as string | undefined) || 'https://aurasphere.co.in').replace(/\/$/, ''),
   ogImage: '/og-image.jpg',

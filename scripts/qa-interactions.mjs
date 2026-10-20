@@ -40,15 +40,14 @@ await m.waitForURL('**/corporate-wellness')
 check('mobile menu navigates', m.url().endsWith('/corporate-wellness'))
 
 // Wellness deep link opens the right accordion
+// (The accordion opens after hydration, so wait for it rather than sleeping a fixed time.)
 await m.goto(BASE + '/wellness#self-defence')
-await m.waitForTimeout(600)
-check('deep link #self-defence visible', await m.locator('#self-defence').isVisible())
+check('deep link #self-defence visible', await visible(m.locator('#self-defence')))
 await m.goto(BASE + '/wellness#lifestyle-engagement')
-await m.waitForTimeout(600)
-check('deep link #lifestyle-engagement visible', await m.locator('#lifestyle-engagement').isVisible())
+check('deep link #lifestyle-engagement visible', await visible(m.locator('#lifestyle-engagement')))
 
 // Wellness search
-await m.goto(BASE + '/wellness')
+await m.goto(BASE + '/wellness', { waitUntil: 'networkidle' }) // typing before hydration is lost
 await m.fill('#activity-search', 'camp')
 const n = await m.locator('article[id]').count()
 check('search "camp" filters results', n > 0 && n < 15, `${n} results`)

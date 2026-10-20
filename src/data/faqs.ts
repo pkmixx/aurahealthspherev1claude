@@ -44,19 +44,39 @@ const camps = activitiesByCategory('health-prevention')
 
 const service = (id: string) => HEALTHCARE_SERVICES.find((s) => s.id === id)!
 
+// Wellness activities and health camps are the site's primary search focus,
+// so these two answers lead the Home, Healthcare, Wellness and Corporate FAQs.
+const WELLNESS_ACTIVITIES_FAQ: Faq = {
+  question: 'What wellness activities does AURASPHERE offer?',
+  answer: WELLNESS_CATEGORIES.map(
+    (c) => `${c.name}: ${activitiesByCategory(c.id).slice(0, 5).map((a) => a.name).join(', ')} and more.`,
+  ).join(' '),
+}
+
+const HEALTH_CAMPS_FAQ: Faq = {
+  question: 'What health camps does AURASPHERE organise?',
+  answer: `AURASPHERE organises preventive health camps at workplaces and community spaces to encourage awareness and early action, including ${list(camps)} camps.`,
+}
+
 const HOME: Faq[] = [
   {
     question: 'What is AURASPHERE Wellness 360?',
-    answer: `AURASPHERE Wellness 360 is a healthcare and wellness platform based in ${CONTACT.address ?? 'India'}. It brings ${list(lower(HEALTHCARE_SERVICES.map((s) => s.name)))} together with wellness activities and corporate wellness programs, for individuals, families and organisations.`,
+    answer: `AURASPHERE Wellness 360 is a wellness and preventive health platform based in ${CONTACT.address ?? 'India'}. It runs wellness activities such as yoga, meditation, sound therapy, Zumba and stress management, and on-site health camps such as ${list(camps.slice(0, 5))} camps, for individuals, communities and workplaces. It also offers healthcare support (${list(lower(HEALTHCARE_SERVICES.filter((s) => s.id !== 'health-camps').map((s) => s.name)))}) and corporate wellness programs.`,
+  },
+  WELLNESS_ACTIVITIES_FAQ,
+  HEALTH_CAMPS_FAQ,
+  {
+    question: 'Can AURASPHERE organise a health camp at our workplace or community?',
+    answer: `Yes. Health camps are organised on-site at workplaces and community spaces. Tell us the type of camp you need and your location, and our team will help you plan it. ${REACH_US}`,
   },
   {
     question: 'What services does AURASPHERE Wellness 360 offer?',
-    answer: `Healthcare: ${list(HEALTHCARE_SERVICES.map((s) => s.name))}. Wellness: activities across ${list(WELLNESS_CATEGORIES.map((c) => c.name))}, such as yoga, meditation, sound therapy, Zumba and stress management. Corporate wellness: employee programs covering ${lower(CORPORATE_AREAS.slice(0, 6).map((a) => a.name)).join(', ')} and more.`,
+    answer: `Wellness activities across ${list(WELLNESS_CATEGORIES.map((c) => c.name))}. Preventive health camps for workplaces and communities. Healthcare support: ${list(HEALTHCARE_SERVICES.filter((s) => s.id !== 'health-camps').map((s) => s.name))}. Corporate wellness: employee programs covering ${lower(CORPORATE_AREAS.slice(0, 6).map((a) => a.name)).join(', ')} and more.`,
   },
   {
     question: 'Who are AURASPHERE’s services for?',
     answer:
-      'Individuals and families looking for healthcare access, wellness sessions, nutrition and preventive health, and organisations looking for corporate wellness, employee engagement, health camps, training and team activities.',
+      'Individuals and families looking for wellness sessions, preventive health, nutrition and healthcare access, and organisations looking for health camps, corporate wellness, employee engagement, training and team activities.',
   },
   {
     question: 'How do I get started with AURASPHERE Wellness 360?',
@@ -73,6 +93,7 @@ const HOME: Faq[] = [
 ]
 
 const HEALTHCARE: Faq[] = [
+  HEALTH_CAMPS_FAQ,
   {
     question: 'How can AURASPHERE help me consult a doctor?',
     answer: `${service('doctor-consultation').description} We help individuals, families and workplaces identify the right type of consultation. Doctors associated with AURASPHERE cover ${list(specialties)}.`,
@@ -86,22 +107,14 @@ const HEALTHCARE: Faq[] = [
     answer: `Yes. ${service('lab-tests').description} Options are available for individuals and teams.`,
   },
   {
-    question: 'What kinds of health camps does AURASPHERE organise?',
-    answer: `AURASPHERE organises preventive health camps at workplaces and community spaces to encourage awareness and early action, including ${list(camps)} camps.`,
-  },
-  {
     question: 'Does AURASPHERE offer diet and nutrition guidance?',
     answer: `Yes. AURASPHERE offers ${service('diet-nutrition').description.replace(/^./, (c) => c.toLowerCase())} Options include ${list(lower(service('diet-nutrition').features))}.`,
   },
 ]
 
 const WELLNESS: Faq[] = [
-  {
-    question: 'What wellness activities does AURASPHERE offer?',
-    answer: WELLNESS_CATEGORIES.map(
-      (c) => `${c.name}: ${activitiesByCategory(c.id).slice(0, 5).map((a) => a.name).join(', ')} and more.`,
-    ).join(' '),
-  },
+  WELLNESS_ACTIVITIES_FAQ,
+  HEALTH_CAMPS_FAQ,
   {
     question: 'Are wellness sessions for individuals or groups?',
     answer:
@@ -124,12 +137,18 @@ const CORPORATE: Faq[] = [
     answer: `Programs are built from ${CORPORATE_AREAS.length} areas: ${list(CORPORATE_AREAS.map((a) => a.name))}. For example, wellness sessions include ${list(CORPORATE_AREAS[0].includes)}.`,
   },
   {
-    question: 'What formats are available for workplace wellness?',
-    answer: `${list(PROGRAM_FORMATS.map((f) => f.name.toLowerCase())).replace(/^./, (c) => c.toUpperCase())}. A custom corporate program combines formats and is planned around your workplace.`,
+    question: 'Which wellness activities can AURASPHERE run for employees?',
+    answer: `Workplace wellness activities include ${list(
+      [...new Set(CORPORATE_AREAS.filter((a) => ['wellness-sessions', 'fitness', 'mental-well-being'].includes(a.id)).flatMap((a) => a.includes))],
+    )}, along with health talks, nutrition sessions and team activities.`,
   },
   {
     question: 'Can AURASPHERE run health camps at our office?',
     answer: `Yes. AURASPHERE organises on-site preventive health camps, including ${list(camps)} camps, to encourage awareness and early action.`,
+  },
+  {
+    question: 'What formats are available for workplace wellness?',
+    answer: `${list(PROGRAM_FORMATS.map((f) => f.name.toLowerCase())).replace(/^./, (c) => c.toUpperCase())}. A custom corporate program combines formats and is planned around your workplace.`,
   },
   {
     question: 'Does AURASPHERE provide POSH and CPR training for employees?',

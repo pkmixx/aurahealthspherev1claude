@@ -5,12 +5,22 @@
  */
 import { CONTACT, SITE, SOCIAL_LINKS } from '@/config/site'
 import { ROUTES } from '@/config/routes'
-import { CORPORATE_AREAS, HEALTHCARE_SERVICES, PROGRAM_FORMATS, WELLNESS_CATEGORIES, activitiesByCategory } from '@/data/services'
+import {
+  CORPORATE_AREAS,
+  HEALTHCARE_SERVICES,
+  PROGRAM_FORMATS,
+  WELLNESS_ACTIVITIES,
+  WELLNESS_CATEGORIES,
+  activitiesByCategory,
+} from '@/data/services'
 import { EXPERTS } from '@/data/experts'
 import { FAQS } from '@/data/faqs'
 import { EMERGENCY_NOTE, SHORT_DISCLAIMER } from '@/data/disclaimers'
 
 const url = (path: string) => (path === '/' ? `${SITE.url}/` : `${SITE.url}${path}`)
+
+const CAMPS = activitiesByCategory('health-prevention').filter((a) => a.format.includes('Camp'))
+const camps = HEALTHCARE_SERVICES.find((s) => s.id === 'health-camps')!
 
 export function llmsTxt(): string {
   const contact = [
@@ -34,17 +44,25 @@ export function llmsTxt(): string {
   return [
     `# ${SITE.name}`,
     `> ${SITE.defaultDescription} Based in ${CONTACT.address ?? 'India'}. ${SITE.tagline}`,
-    `${SITE.shortName} serves individuals, families and organisations. Requests are handled personally by the team after you get in touch; online booking is not available yet, and prices are not published.`,
+    `Requests are handled personally by the team after you get in touch; online booking is not available yet, and prices are not published.`,
     '## Pages',
     Object.values(ROUTES)
       .map((r) => `- [${r.label}](${url(r.path)}): ${r.description}`)
       .join('\n'),
-    '## Healthcare services',
-    HEALTHCARE_SERVICES.map((s) => `- ${s.name}: ${s.description} (${s.features.join('; ')})`).join('\n'),
-    '## Wellness activities',
+    `## Wellness activities\n\n${WELLNESS_ACTIVITIES.length} activities for individuals, groups and workplaces. Details: ${url(ROUTES.wellness.path)}`,
     WELLNESS_CATEGORIES.map(
-      (c) => `- ${c.name}: ${c.intro} ${activitiesByCategory(c.id).map((a) => a.name).join(', ')}.`,
-    ).join('\n'),
+      (c) =>
+        `### ${c.name}\n\n${c.intro}\n\n` +
+        activitiesByCategory(c.id)
+          .map((a) => `- ${a.name}: ${a.description} (${a.format.join(', ')})`)
+          .join('\n'),
+    ).join('\n\n'),
+    `## Health camps\n\n${camps.description} Details: ${url(ROUTES.healthcare.path)}#${camps.id}`,
+    CAMPS.map((a) => `- ${a.name}: ${a.description}`).join('\n'),
+    '## Healthcare services',
+    HEALTHCARE_SERVICES.filter((s) => s.id !== camps.id)
+      .map((s) => `- ${s.name}: ${s.description} (${s.features.join('; ')})`)
+      .join('\n'),
     '## Corporate wellness',
     CORPORATE_AREAS.map((a) => `- ${a.name}: ${a.description} Includes ${a.includes.join(', ')}.`).join('\n'),
     `Formats: ${PROGRAM_FORMATS.map((f) => f.name).join(', ')}.`,

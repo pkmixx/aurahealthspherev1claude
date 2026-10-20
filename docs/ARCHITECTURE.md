@@ -70,6 +70,13 @@ Tokens live in `src/index.css` (`@theme`):
 
 ## AEO (answer engines: Google AI Overviews, Bing/Copilot, ChatGPT, Perplexity, Claude)
 
+- **Primary search focus: wellness activities and health camps** (client, 2026-10-20). This is applied only to what search engines and AI read; the visible layout is unchanged:
+  - titles and descriptions in `src/config/routes.ts` lead with them
+  - Organization `knowsAbout` lists them first
+  - each health camp type and each of the 40 activities is its own `Service` (in `OfferCatalog`s) on Home, Healthcare, Wellness and Corporate
+  - `WELLNESS_ACTIVITIES_FAQ` / `HEALTH_CAMPS_FAQ` lead the FAQs
+  - `llms.txt` opens with them
+
 - **FAQs.** `src/data/faqs.ts` holds question → answer pairs per route (Home, Healthcare, Wellness, Corporate Wellness, Experts, Contact). `<FAQSection />` renders them visibly (answers are in the HTML even when collapsed) and `seo.ts` emits the identical text as FAQPage JSON-LD. Answers are generated from the service, expert, disclaimer and contact data, so they stay in sync. Add a page's FAQs to `FAQS` and drop `<FAQSection />` into the page.
 - **`/llms.txt`.** `src/config/llms.ts` builds a Markdown summary of the site (pages, services, activities, corporate areas, experts, contact, all FAQs, disclaimer) per [llmstxt.org](https://llmstxt.org). `scripts/prerender.mjs` writes it to `dist/llms.txt`.
 - **Crawlers.** `public/robots.txt` allows everyone and names the AI search/answer crawlers explicitly (OAI-SearchBot, ChatGPT-User, Claude-SearchBot, PerplexityBot, …). To opt out of AI *training* while staying in AI *search*, add `Disallow: /` groups for `GPTBot`, `ClaudeBot`, `Google-Extended`, `Applebot-Extended` and `CCBot`; this is the client's call.

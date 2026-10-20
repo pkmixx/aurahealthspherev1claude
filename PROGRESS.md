@@ -24,6 +24,7 @@ _Last updated: 2026-10-20_
 | SEO basics (meta, OG, canonical, robots, sitemap script) | ✅ Done |
 | SEO: prerendered routes, JSON-LD, keyword titles, real 404 (`npm run qa:seo`) | ✅ Live on AWS 2026-10-18 |
 | AEO: FAQs + FAQPage schema, Service/Person schema, `llms.txt`, AI-crawler robots rules | ✅ Live on AWS 2026-10-20 |
+| Search focus on wellness activities + health camps (titles, schema, FAQs, llms.txt) | ✅ Built 2026-10-20 — deploy pending |
 | Automated QA script (`scripts/qa.mjs`) | ✅ Done — last run: no problems |
 | Visual QA pass (390 / 1024 / 1440 reviewed) | ✅ Done |
 | Interaction QA (`scripts/qa-interactions.mjs`, 26 checks) | ✅ All pass |
@@ -162,5 +163,8 @@ npm run qa:seo                                        # SEO + hydration checks (
     - `deploy/apache-aurasphere.conf`: `AddCharset UTF-8 .txt .xml`. Also added to the live `aurasphere-le-ssl.conf` (backup: `.bak-20261020`).
     - `qa:seo` extended (FAQ/schema match, llms.txt, robots). All suites clean: qa (9 pages × 6 widths), qa:interactions, qa:seo.
   - Deployed and verified live: 8 routes return 200, FAQPage on the 6 FAQ pages, `/llms.txt` and `robots.txt` served as `text/plain; charset=utf-8`, unknown URLs return 404, and `qa:seo` passes against production.
-  - **Next:** validate a page in Google's Rich Results Test; client to decide whether AI *training* crawlers (GPTBot, ClaudeBot, Google-Extended) should stay allowed.
+  - Rich Results Test (home): 2 valid items (Organisation, Local business), only warnings are the optional `streetAddress`/`postalCode` (client wants city only). FAQ rich results are not shown for most sites since 2023, so FAQ isn't listed; Schema.org validator confirms FAQPage, Service and Person markup with 0 errors/warnings on Home, Healthcare and Experts.
+  - Client: wellness activities and health camps are the main search target, **search and AI only** (no visible layout change). Retargeted titles/descriptions, Organization description and `knowsAbout`, added per-camp and per-activity `Service` entries, FAQs now lead with wellness activities and health camps (new Home and Corporate questions), `llms.txt` opens with an activity-by-activity and camp-by-camp list.
+  - Bug fix (live since the prerender commit `4491d1c`): `/wellness#<activity>` deep links didn't open the right accordion, because the initial state read the hash during hydration, so it didn't match the prerendered HTML. The page now opens it after hydration, and `ScrollToTop` waits until the target is visible before scrolling. Two timing-based interaction checks were also hardened. QA is clean: 26/26 on 6 consecutive runs, qa and qa:seo.
+  - **Next:** client to decide whether AI *training* crawlers (GPTBot, ClaudeBot, Google-Extended) should stay allowed.
 
