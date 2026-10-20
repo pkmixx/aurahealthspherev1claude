@@ -12,6 +12,7 @@ import { ButtonLink } from '@/components/Button'
 import { ServiceCategory } from '@/components/ServiceCategory'
 import { CTASection } from '@/components/CTASection'
 import { HealthDisclaimer } from '@/components/HealthDisclaimer'
+import { FAQSection } from '@/components/FAQSection'
 import { WELLNESS_NOTE } from '@/data/disclaimers'
 
 type Filter = 'all' | WellnessCategoryId
@@ -177,6 +178,8 @@ export default function Wellness() {
         )}
         <HealthDisclaimer note={WELLNESS_NOTE} showEmergency={false} className="mt-12 md:mt-16" />
       </section>
+
+      <FAQSection className="pt-0! sm:pt-0!" />
 
       <CTASection
         eyebrow="Tailored for you"

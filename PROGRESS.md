@@ -3,7 +3,7 @@
 > Living log so work can be resumed at any time. Update at every milestone.
 > Spec: `prompt.txt` · Docs: `README.md`, `docs/`
 
-_Last updated: 2026-10-18_
+_Last updated: 2026-10-20_
 
 ## Status at a glance
 
@@ -23,6 +23,7 @@ _Last updated: 2026-10-18_
 | 404 page                               | ✅ Done |
 | SEO basics (meta, OG, canonical, robots, sitemap script) | ✅ Done |
 | SEO: prerendered routes, JSON-LD, keyword titles, real 404 (`npm run qa:seo`) | ✅ Live on AWS 2026-10-18 |
+| AEO: FAQs + FAQPage schema, Service/Person schema, `llms.txt`, AI-crawler robots rules | ✅ Built 2026-10-20 — deploy pending |
 | Automated QA script (`scripts/qa.mjs`) | ✅ Done — last run: no problems |
 | Visual QA pass (390 / 1024 / 1440 reviewed) | ✅ Done |
 | Interaction QA (`scripts/qa-interactions.mjs`, 26 checks) | ✅ All pass |
@@ -152,4 +153,13 @@ npm run qa:seo                                        # SEO + hydration checks (
   - Moved hosting to AWS EC2: new Apache config and a Let's Encrypt certificate, with the SEO build deployed. GoDaddy DNS points to the new server.
   - Verified live: all 8 routes return 200 with their own canonical URL, unknown URLs return 404, http/www redirect to https, gzip is on.
   - **Next:** submit `https://aurasphere.co.in/sitemap.xml` in Google Search Console. Decommission the old GCP VM.
+- **2026-10-20**
+  - AEO (answer engine optimisation) pass:
+    - Visible FAQ sections on Home, Healthcare, Wellness, Corporate Wellness, Experts and Contact (`src/data/faqs.ts`, `<FAQSection />`), with matching FAQPage JSON-LD. Answers are generated from existing site data; nothing new is claimed.
+    - JSON-LD now also has Service lists (healthcare services, wellness categories, corporate areas), Person entries for experts (no affiliations), Organization `knowsAbout`, and WebPage `dateModified`.
+    - `/llms.txt` generated at build from the same data (`src/config/llms.ts`).
+    - `robots.txt` names the AI search/answer crawlers explicitly (all allowed, as before).
+    - `deploy/apache-aurasphere.conf`: `AddCharset UTF-8 .txt .xml`. Add this to the live vhost too.
+    - `qa:seo` extended (FAQ/schema match, llms.txt, robots). All suites clean: qa (9 pages × 6 widths), qa:interactions, qa:seo.
+  - **Next:** redeploy; add the `AddCharset` line on the server; validate a page in Google's Rich Results Test; client to decide whether AI *training* crawlers (GPTBot, ClaudeBot, Google-Extended) should stay allowed.
 

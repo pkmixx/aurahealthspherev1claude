@@ -1,4 +1,27 @@
+# AURASPHERE Wellness 360
+# All crawlers are welcome, including AI search and answer engines.
+# A plain-text summary for AI assistants is at https://aurasphere.co.in/llms.txt
+
 User-agent: *
+Allow: /
+
+# AI search / answer engines (listed explicitly so the policy is unambiguous)
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: GPTBot
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: ClaudeBot
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Google-Extended
+User-agent: Applebot
+User-agent: Applebot-Extended
+User-agent: Bingbot
+User-agent: DuckAssistBot
+User-agent: meta-externalagent
+User-agent: Amazonbot
+User-agent: MistralAI-User
 Allow: /
 
 Sitemap: https://aurasphere.co.in/sitemap.xml

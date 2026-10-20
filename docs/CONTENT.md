@@ -38,6 +38,10 @@ If information is missing, **omit it**.
 
 These can be added later **if the client confirms** they should appear on the AURASPHERE site.
 
+## FAQs (`src/data/faqs.ts`)
+
+FAQ answers are read by search and AI answer engines and may be quoted as-is, so they follow the same rules: restate only what the site already says (services, experts, disclaimers, client-supplied contact details). No prices, outcomes, statistics or availability promises. The emergency and not-medical-advice FAQs reuse `src/data/disclaimers.ts` verbatim.
+
 ## Wellness activity descriptions
 
 Short, neutral one-liners only. No health claims. Each activity has a `format` (Session, Workshop, Camp and so on) and a Contact Us CTA.

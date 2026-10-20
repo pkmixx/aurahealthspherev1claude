@@ -1,12 +1,12 @@
 // Prerenders every route to static HTML after `vite build`, so search engines and
 // link previews (WhatsApp, LinkedIn, X…) get real content and per-page meta tags.
 // Expects the client build in dist/ and the SSR build (src/entry-server.tsx) in dist-ssr/.
-// Output: dist/index.html (home), dist/<route>.html, dist/404.html.
+// Output: dist/index.html (home), dist/<route>.html, dist/404.html and dist/llms.txt.
 import { readFileSync, writeFileSync, rmSync } from 'node:fs'
 import { pathToFileURL } from 'node:url'
 import { resolve } from 'node:path'
 
-const { render, ROUTES, SITE, structuredData } = await import(
+const { render, ROUTES, SITE, structuredData, llmsTxt } = await import(
   pathToFileURL(resolve('dist-ssr/entry-server.js')).href
 )
 const template = readFileSync('dist/index.html', 'utf8')
@@ -63,4 +63,6 @@ await page(
   },
   'dist/404.html',
 )
+writeFileSync('dist/llms.txt', llmsTxt())
+console.log('[prerender] llms.txt')
 rmSync('dist-ssr', { recursive: true, force: true })

@@ -12,6 +12,7 @@ import { Reveal } from '@/components/Reveal'
 import { Visual } from '@/components/Visual'
 import { CTASection } from '@/components/CTASection'
 import { HealthDisclaimer } from '@/components/HealthDisclaimer'
+import { FAQSection } from '@/components/FAQSection'
 import { WELLNESS_NOTE } from '@/data/disclaimers'
 
 const APPROACH = [
@@ -199,7 +200,9 @@ export default function CorporateWellness() {
         </div>
       </section>
 
-      <div className="container-x pt-14 sm:pt-20">
+      <FAQSection />
+
+      <div className="container-x">
         <HealthDisclaimer note={WELLNESS_NOTE} showEmergency={false} className="mx-auto max-w-4xl" />
       </div>
 

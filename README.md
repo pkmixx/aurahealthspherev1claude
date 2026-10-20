@@ -27,7 +27,7 @@ npm run preview    # serve the production build
 Optional:
 
 ```bash
-npm run qa:seo                                     # SEO checks on the prerendered build (needs `vite preview` on :4173)
+npm run qa:seo                                     # SEO/AEO checks on the prerendered build (needs `vite preview` on :4173)
 python scripts/generate-images.py                  # generate site photography via Gemini (needs GEMINI_API_KEY)
 ```
 
@@ -67,7 +67,7 @@ src/
                  Accordion, ScrollToTop, Visual, Logo, Button, Reveal, OrbitRings, WellnessTabs
   pages/         Home, Healthcare, Wellness, CorporateWellness, Experts, About, Contact, NotFound
 public/          brand/ (logo variants), images/experts/, og-image.jpg, favicon, robots.txt
-scripts/         prerender.mjs, generate-sitemap.mjs, qa-seo.mjs, generate-images.py, import-photo.py, make-thumb.py, qa.mjs, qa-interactions.mjs
+scripts/         prerender.mjs (also writes llms.txt), generate-sitemap.mjs, qa-seo.mjs, generate-images.py, import-photo.py, make-thumb.py, qa.mjs, qa-interactions.mjs
 docs/            ARCHITECTURE.md, CONTENT.md, STAGE-2.md
 ```
 

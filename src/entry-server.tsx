@@ -10,6 +10,7 @@ import { App } from './App'
 export { ROUTES } from '@/config/routes'
 export { SITE } from '@/config/site'
 export { structuredData } from '@/config/seo'
+export { llmsTxt } from '@/config/llms'
 
 export async function render(url: string): Promise<string> {
   const { prelude } = await prerender(

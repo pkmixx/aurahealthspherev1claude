@@ -10,6 +10,7 @@ import { ExpertCard } from '@/components/ExpertCard'
 import { ExpertModal } from '@/components/ExpertModal'
 import { CTASection } from '@/components/CTASection'
 import { HealthDisclaimer } from '@/components/HealthDisclaimer'
+import { FAQSection } from '@/components/FAQSection'
 import { EXPERT_NOTE } from '@/data/disclaimers'
 
 type Filter = ExpertCategory | 'All'
@@ -80,6 +81,8 @@ export default function Experts() {
       </section>
 
       <ExpertModal expert={expert} onClose={close} />
+
+      <FAQSection className="pt-0! sm:pt-0!" />
 
       <CTASection
         title="Not sure who to speak to?"

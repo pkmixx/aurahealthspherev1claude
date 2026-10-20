@@ -13,6 +13,7 @@ import { Visual } from '@/components/Visual'
 import { SectionHeading } from '@/components/SectionHeading'
 import { CTASection } from '@/components/CTASection'
 import { HealthDisclaimer } from '@/components/HealthDisclaimer'
+import { FAQSection } from '@/components/FAQSection'
 
 const STEPS = [
   { title: 'Tell us what you need', text: 'Share your requirement through the contact form.', Icon: MessageSquareText },
@@ -133,7 +134,9 @@ export default function Healthcare() {
         </div>
       </section>
 
-      <div className="container-x pt-14 sm:pt-20">
+      <FAQSection />
+
+      <div className="container-x">
         <HealthDisclaimer className="mx-auto max-w-4xl" />
       </div>
 

@@ -20,6 +20,7 @@ import { Reveal } from '@/components/Reveal'
 import { Visual } from '@/components/Visual'
 import { OrbitRings } from '@/components/OrbitRings'
 import { AIFeatures } from '@/components/AIFeatures'
+import { FAQSection } from '@/components/FAQSection'
 
 export default function Home() {
   useDocumentMeta(ROUTES.home.title, ROUTES.home.description)
@@ -246,6 +247,8 @@ export default function Home() {
           </Reveal>
         </div>
       </section>
+
+      <FAQSection />
 
       {/* 8 — Final CTA */}
       <CTASection

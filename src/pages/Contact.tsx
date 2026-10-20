@@ -12,6 +12,7 @@ import { Button, ButtonAnchor } from '@/components/Button'
 import { ContactCard } from '@/components/ContactCard'
 import { Reveal } from '@/components/Reveal'
 import { HealthDisclaimer } from '@/components/HealthDisclaimer'
+import { FAQSection } from '@/components/FAQSection'
 
 type Errors = Partial<Record<keyof Enquiry, string>>
 
@@ -345,6 +346,8 @@ export default function Contact() {
           </Reveal>
         </div>
       </section>
+
+      <FAQSection className="pt-0! sm:pt-0!" />
     </>
   )
 }
